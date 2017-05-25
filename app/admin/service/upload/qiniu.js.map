@@ -1,0 +1,43 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../../src/admin/service/upload/qiniu.js"
+    ],
+    "names": [
+        "uploadMethod",
+        "filename",
+        "config",
+        "conf",
+        "ACCESS_KEY",
+        "accessKey",
+        "SECRET_KEY",
+        "secretKey",
+        "savePath",
+        "getSavePath",
+        "prefix",
+        "token",
+        "rs",
+        "PutPolicy",
+        "bucket",
+        "extra",
+        "io",
+        "PutExtra",
+        "resolve",
+        "reject",
+        "putFile",
+        "err",
+        "ret",
+        "origin",
+        "getAbsOrigin",
+        "compeletePath",
+        "key",
+        "run",
+        "file",
+        "upload"
+    ],
+    "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;;;;AACA;;;;;;;;;;;;;;AAGE;mBACMA,Y;2FAAaC,Q,EAAUC,M;;;;;;;;AAC3B,8BAAMC,IAAN,CAAWC,UAAX,GAAwBF,OAAOG,SAA/B;AACA,8BAAMF,IAAN,CAAWG,UAAX,GAAwBJ,OAAOK,SAA/B;AACMC,sB,GAAW,KAAKC,WAAL,CAAiBR,QAAjB,EAA2BC,OAAOQ,MAAlC,C;AACXC,mB,GAAQ,IAAI,gBAAMC,EAAN,CAASC,SAAb,CAA0BX,OAAOY,MAAjC,SAA2CN,QAA3C,EAAuDG,KAAvD,E;AACRI,mB,GAAQ,IAAI,gBAAMC,EAAN,CAASC,QAAb,E;+CACP,sBAAY,UAACC,OAAD,EAAUC,MAAV,EAAqB;AACtC,gCAAMH,EAAN,CAASI,OAAT,CAAiBT,KAAjB,EAAwBH,QAAxB,EAAkCP,QAAlC,EAA4Cc,KAA5C,EAAmD,UAACM,GAAD,EAAMC,GAAN,EAAc;AAC/D,sBAAID,GAAJ,EAAS;AACPF,2BAAOE,GAAP;AACD,mBAFD,MAEO;AACL,wBAAME,SAAS,OAAKC,YAAL,CAAkBtB,OAAOqB,MAAzB,CAAf;AACA,wBAAME,gBAAmBF,MAAnB,SAA6BD,IAAII,GAAvC;AACAR,4BAAQO,aAAR;AACD;AACF,iBARD;AASD,eAVM,C;;;;;;;;;;;;;;;;;AAaT;;;mBACME,G;6FAAIC,I,EAAM1B,M;;;;;;qBACD,KAAK2B,MAAL,CAAYD,IAAZ,EAAkB1B,MAAlB,C",
+    "file": "../../../../src/admin/service/upload/qiniu.js",
+    "sourcesContent": [
+        "import qiniu from 'qiniu';\nimport Base from './base';\n\nexport default class extends Base {\n  // 导入方法\n  async uploadMethod(filename, config) {\n    qiniu.conf.ACCESS_KEY = config.accessKey;\n    qiniu.conf.SECRET_KEY = config.secretKey;\n    const savePath = this.getSavePath(filename, config.prefix);\n    const token = new qiniu.rs.PutPolicy(`${config.bucket}:${savePath}`).token();\n    const extra = new qiniu.io.PutExtra();\n    return new Promise((resolve, reject) => {\n      qiniu.io.putFile(token, savePath, filename, extra, (err, ret) => {\n        if (err) {\n          reject(err);\n        } else {\n          const origin = this.getAbsOrigin(config.origin);\n          const compeletePath = `${origin}/${ret.key}`;\n          resolve(compeletePath);\n        }\n      });\n    });\n  }\n\n  // 执行方法\n  async run(file, config) {\n    return await this.upload(file, config);\n  }\n}\n"
+    ]
+}

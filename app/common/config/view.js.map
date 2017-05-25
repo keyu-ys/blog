@@ -1,0 +1,40 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/common/config/view.js"
+    ],
+    "names": [
+        "build_query",
+        "obj",
+        "map",
+        "encodeURIComponent",
+        "k",
+        "join",
+        "type",
+        "content_type",
+        "file_ext",
+        "file_depr",
+        "root_path",
+        "think",
+        "ROOT_PATH",
+        "adapter",
+        "nunjucks",
+        "prerender",
+        "env",
+        "addFilter",
+        "Date",
+        "time",
+        "toUTCString",
+        "page",
+        "ctx",
+        "http",
+        "url",
+        "pathname",
+        "query"
+    ],
+    "mappings": "AAAA;;;;;;;;AAEA;;;;AAEA,IAAMA,cAAc,SAAdA,WAAc;AAAA,SAAO,MACzB,oBAAYC,GAAZ,EAAiBC,GAAjB,CAAqB;AAAA,WAAKC,mBAAmBC,CAAnB,IAAwB,GAAxB,GAA8BD,mBAAmBF,IAAIG,CAAJ,CAAnB,CAAnC;AAAA,GAArB,EAAoFC,IAApF,CAAyF,GAAzF,CADkB;AAAA,CAApB;AAEA;;;kBAGe;AACbC,QAAM,UADO;AAEbC,gBAAc,WAFD;AAGbC,YAAU,OAHG;AAIbC,aAAW,GAJE;AAKbC,aAAWC,MAAMC,SAAN,GAAkB,OALhB;AAMbC,WAAS;AACPC,cAAU;AACRC,iBAAW,mBAASD,QAAT,EAAmBE,GAAnB,EAAwB;AACjCA,YAAIC,SAAJ,CAAc,KAAd,EAAqB;AAAA,iBAAS,IAAIC,IAAJ,CAASC,IAAT,CAAD,CAAiBC,WAAjB,EAAR;AAAA,SAArB;AACAJ,YAAIC,SAAJ,CAAc,YAAd,EAA4B,UAASI,IAAT,EAAe;AAAA,uBACjB,gBAAM,KAAKC,GAAL,CAASC,IAAT,CAAcC,GAApB,EAAyB,IAAzB,CADiB;AAAA,cACpCC,QADoC,UACpCA,QADoC;AAAA,cAC1BC,KAD0B,UAC1BA,KAD0B;;AAGzCA,gBAAML,IAAN,GAAaA,IAAb;AACA,iBAAOI,WAAWzB,YAAY0B,KAAZ,CAAlB;AACD,SALD;AAMD;AATO;AADH;AANI,C",
+    "file": "../../../src/common/config/view.js",
+    "sourcesContent": [
+        "'use strict';\n\nimport {parse} from 'url';\n\nconst build_query = obj => '?' +\n  Object.keys(obj).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(obj[k])).join('&');\n/**\n * template config\n */\nexport default {\n  type: 'nunjucks',\n  content_type: 'text/html',\n  file_ext: '.html',\n  file_depr: '_',\n  root_path: think.ROOT_PATH + '/view',\n  adapter: {\n    nunjucks: {\n      prerender: function(nunjucks, env) {\n        env.addFilter('utc', time => (new Date(time)).toUTCString());\n        env.addFilter('pagination', function(page) {\n          let {pathname, query} = parse(this.ctx.http.url, true);\n\n          query.page = page;\n          return pathname + build_query(query);\n        });\n      }\n    }\n  }\n};\n"
+    ]
+}

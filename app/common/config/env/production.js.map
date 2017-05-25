@@ -1,0 +1,14 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../../src/common/config/env/production.js"
+    ],
+    "names": [
+        "cluster_on"
+    ],
+    "mappings": "AAAA;;;kBAEe;AACbA,cAAY;AADC,C",
+    "file": "../../../../src/common/config/env/production.js",
+    "sourcesContent": [
+        "'use strict';\n\nexport default {\n  cluster_on: 1\n};\n"
+    ]
+}

@@ -1,0 +1,34 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../../src/admin/service/upload/base.js"
+    ],
+    "names": [
+        "init",
+        "args",
+        "getAbsOrigin",
+        "origin",
+        "reg",
+        "test",
+        "formatNow",
+        "Date",
+        "format",
+        "getSavePath",
+        "filename",
+        "prefix",
+        "dir",
+        "basename",
+        "uploadMethod",
+        "upload",
+        "config",
+        "result",
+        "think",
+        "service",
+        "base"
+    ],
+    "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;AAAA;;;;AACA;;;;;;;;;;;;;;mBAGEA,I,mBAAc;AAAA;;AAAA,sCAANC,IAAM;AAANA,UAAM;AAAA;;AACZ,2DAAMD,IAAN,kDAAcC,IAAd;AACD,G;;AAED;;;mBACAC,Y,yBAAaC,M,EAAQ;AACnB,QAAMC,MAAM,mBAAZ;AACA,QAAI,CAACA,IAAIC,IAAJ,CAASF,MAAT,CAAL,EAAuB;AACrB,yBAAiBA,MAAjB;AACD;AACD,WAAOA,MAAP;AACD,G;;AAED;;;mBACAG,S,wBAAY;AACV,WAAO,sBAAO,IAAIC,IAAJ,EAAP,EAAmBC,MAAnB,CAA0B,UAA1B,CAAP;AACD,G;;AAED;;;mBACAC,W,wBAAYC,Q,EAAUC,M,EAAQ;AAC5BA,aAASA,SAAYA,MAAZ,SAAwB,EAAjC;AACA,QAAMC,MAAM,KAAKN,SAAL,EAAZ;AACA,QAAMO,WAAW,eAAKA,QAAL,CAAcH,QAAd,CAAjB;AACA,gBAAUC,MAAV,GAAmBC,GAAnB,SAA0BC,QAA1B;AACD,G;;AAED;;;mBACMC,Y;;;;;;;;;;;;;;;;;;;;mBAEAC,M;6FAAOL,Q,EAAUM,M;;;;;;;qBACA,KAAKF,YAAL,CAAkBJ,QAAlB,EAA4BM,MAA5B,C;;;AAAfC,oB;gDACCA,M;;;;;;;;;;;;;;;;;;EAhCkBC,MAAMC,OAAN,CAAcC,I",
+    "file": "../../../../src/admin/service/upload/base.js",
+    "sourcesContent": [
+        "import path from 'path';\nimport moment from 'moment';\n\nexport default class extends think.service.base {\n  init(...args) {\n    super.init(...args);\n  }\n\n  // 域名不带http/https自动补全http\n  getAbsOrigin(origin) {\n    const reg = /^(https?:)?\\/\\/.+/;\n    if (!reg.test(origin)) {\n      return `http://${origin}`;\n    }\n    return origin;\n  }\n\n  // 获取当前的格式化时间\n  formatNow() {\n    return moment(new Date()).format('YYYYMMDD');\n  }\n\n  // 获取存储路径\n  getSavePath(filename, prefix) {\n    prefix = prefix ? `${prefix}/` : '';\n    const dir = this.formatNow();\n    const basename = path.basename(filename);\n    return `${prefix}${dir}/${basename}`;\n  }\n\n  // 导入方法\n  async uploadMethod() {}\n\n  async upload(filename, config) {\n    const result = await this.uploadMethod(filename, config);\n    return result;\n  }\n}\n"
+    ]
+}

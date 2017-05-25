@@ -1,0 +1,48 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/admin/controller/user.js"
+    ],
+    "names": [
+        "loginAction",
+        "model",
+        "getOptions",
+        "options",
+        "two_factor_auth",
+        "post",
+        "verified",
+        "totp",
+        "verify",
+        "secret",
+        "encoding",
+        "token",
+        "window",
+        "fail",
+        "username",
+        "userModel",
+        "where",
+        "name",
+        "find",
+        "userInfo",
+        "think",
+        "isEmpty",
+        "status",
+        "type",
+        "password",
+        "checkPassword",
+        "session",
+        "success",
+        "logoutAction",
+        "redirect",
+        "passwordAction",
+        "saveUser",
+        "id",
+        "ip",
+        "rows"
+    ],
+    "mappings": "AAAA;;;;;;;;;;;;;;;;;;;;;;;;AAEA;;;;AACA;;;;;;;;;;;;;;AAGE;;;;mBAIMA,W;;;;;;;AACJ;AACIC,mB,GAAQ,KAAKA,KAAL,CAAW,SAAX,C;;qBACQA,MAAMC,UAAN,E;;;AAAhBC,qB;;mBACDA,QAAQC,e;;;;;AACLA,6B,GAAkB,KAAKC,IAAL,CAAU,iBAAV,C;AAClBC,sB,GAAW,oBAAUC,IAAV,CAAeC,MAAf,CAAsB;AACnCC,wBAAQN,QAAQC,eADmB;AAEnCM,0BAAU,QAFyB;AAGnCC,uBAAOP,eAH4B;AAInCQ,wBAAQ;AAJ2B,eAAtB,C;;kBAMXN,Q;;;;;+CACK,KAAKO,IAAL,CAAU,uBAAV,C;;;;AAIX;AACIC,sB,GAAW,KAAKT,IAAL,CAAU,UAAV,C;AACXU,uB,GAAY,KAAKd,KAAL,CAAW,MAAX,C;;qBACKc,UAAUC,KAAV,CAAgB,EAACC,MAAMH,QAAP,EAAhB,EAAkCI,IAAlC,E;;;AAAjBC,sB;;mBACDC,MAAMC,OAAN,CAAcF,QAAd,C;;;;;+CACM,KAAKN,IAAL,CAAU,eAAV,C;;;oBAIN,CAACM,SAASG,MAAT,GAAkB,CAAnB,MAA0B,CAA1B,IAA+BH,SAASI,IAAT,KAAkB,C;;;;;+CAC3C,KAAKV,IAAL,CAAU,mBAAV,C;;;;AAGT;AACIW,sB,GAAW,KAAKnB,IAAL,CAAU,UAAV,C;;kBACXU,UAAUU,aAAV,CAAwBN,QAAxB,EAAkCK,QAAlC,C;;;;;+CACK,KAAKX,IAAL,CAAU,eAAV,C;;;;qBAGH,KAAKa,OAAL,CAAa,UAAb,EAAyBP,QAAzB,C;;;+CAEC,KAAKQ,OAAL,E;;;;;;;;;;;;;;;;AAET;;;;;;mBAIMC,Y;;;;;;;qBACE,KAAKF,OAAL,CAAa,UAAb,EAAyB,EAAzB,C;;;gDACC,KAAKG,QAAL,CAAc,GAAd,C;;;;;;;;;;;;;;;;;AAGT;;;;;mBAGMC,c;;;;;;;;qBACiB,KAAKJ,OAAL,CAAa,UAAb,C;;;;;;;;;;6BAA4B,E;;;AAA7CP,sB;;mBACDC,MAAMC,OAAN,CAAcF,QAAd,C;;;;;gDACM,KAAKN,IAAL,CAAU,gBAAV,C;;;;qBAGQ,KAAKZ,KAAL,CAAW,MAAX,EAAmB8B,QAAnB,CAA4B;AAC3CP,0BAAU,KAAKnB,IAAL,CAAU,UAAV,CADiC;AAE3C2B,oBAAIb,SAASa;AAF8B,eAA5B,EAGd,KAAKC,EAAL,EAHc,C;;;AAAbC,kB;gDAKG,KAAKP,OAAL,CAAaO,IAAb,C",
+    "file": "../../../src/admin/controller/user.js",
+    "sourcesContent": [
+        "'use strict';\n\nimport speakeasy from 'speakeasy';\nimport Base from './base';\n\nexport default class extends Base {\n  /**\n   * login\n   * @return {} []\n   */\n  async loginAction() {\n    //二步验证\n    let model = this.model('options');\n    let options = await model.getOptions();\n    if(options.two_factor_auth) {\n      let two_factor_auth = this.post('two_factor_auth');\n      let verified = speakeasy.totp.verify({\n        secret: options.two_factor_auth,\n        encoding: 'base32',\n        token: two_factor_auth,\n        window: 2\n      });\n      if(!verified) {\n        return this.fail('TWO_FACTOR_AUTH_ERROR');\n      }\n    }\n\n    //校验帐号和密码\n    let username = this.post('username');\n    let userModel = this.model('user');\n    let userInfo = await userModel.where({name: username}).find();\n    if(think.isEmpty(userInfo)) {\n      return this.fail('ACCOUNT_ERROR');\n    }\n\n    //帐号是否被禁用，且投稿者不允许登录\n    if((userInfo.status | 0) !== 1 || userInfo.type === 3) {\n      return this.fail('ACCOUNT_FORBIDDEN');\n    }\n\n    //校验密码\n    let password = this.post('password');\n    if(!userModel.checkPassword(userInfo, password)) {\n      return this.fail('ACCOUNT_ERROR');\n    }\n\n    await this.session('userInfo', userInfo);\n\n    return this.success();\n  }\n  /**\n   * logout\n   * @return {}\n   */\n  async logoutAction() {\n    await this.session('userInfo', '');\n    return this.redirect('/');\n  }\n\n  /**\n   * update user password\n   */\n  async passwordAction() {\n    let userInfo = await this.session('userInfo') || {};\n    if(think.isEmpty(userInfo)) {\n      return this.fail('USER_NOT_LOGIN');\n    }\n\n    let rows = await this.model('user').saveUser({\n      password: this.post('password'),\n      id: userInfo.id\n    }, this.ip());\n\n    return this.success(rows);\n  }\n}\n"
+    ]
+}

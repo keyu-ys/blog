@@ -1,0 +1,24 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/common/config/cache.js"
+    ],
+    "names": [
+        "type",
+        "timeout",
+        "adapter",
+        "file",
+        "path",
+        "think",
+        "RUNTIME_PATH",
+        "path_depth",
+        "file_ext",
+        "redis",
+        "prefix"
+    ],
+    "mappings": ";;;kBAAe;AACbA,QAAM,MADO,EACC;AACdC,WAAS,IAAI,IAFA,EAEM;AACnBC,WAAS,EAAE;AACTC,UAAM;AACJC,YAAMC,MAAMC,YAAN,GAAqB,QADvB,EACiC;AACrCC,kBAAY,CAFR,EAEW;AACfC,gBAAU,OAHN,CAGc;AAHd,KADC;AAMPC,WAAO;AACLC,cAAQ;AADH;AANA;AAHI,C",
+    "file": "../../../src/common/config/cache.js",
+    "sourcesContent": [
+        "export default {\n  type: 'file', //缓存类型\n  timeout: 6 * 3600, //失效时间，单位：秒\n  adapter: { //不同 adapter 下的配置\n    file: {\n      path: think.RUNTIME_PATH + '/cache', //缓存文件的根目录\n      path_depth: 2, //缓存文件生成子目录的深度\n      file_ext: '.json' //缓存文件的扩展名\n    },\n    redis: {\n      prefix: 'firekylin_'\n    }\n  }\n};\n"
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/admin/model/base.js"
+    ],
+    "names": [
+        "init",
+        "args",
+        "think",
+        "model",
+        "relation"
+    ],
+    "mappings": "AAAA;AACA;;;;;;;;;;;;;;;;;;;;;;;;;;;;mBAIEA,I,mBAAc;AAAA;;AAAA,sCAANC,IAAM;AAANA,UAAM;AAAA;;AACZ,8DAAMD,IAAN,mDAAcC,IAAd;AACD,G;;;EAH0BC,MAAMC,KAAN,CAAYC,Q",
+    "file": "../../../src/admin/model/base.js",
+    "sourcesContent": [
+        "'use strict';\n/**\n * relation model\n */\nexport default class extends think.model.relation {\n  init(...args) {\n    super.init(...args);\n  }\n}\n"
+    ]
+}

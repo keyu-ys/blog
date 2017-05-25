@@ -1,0 +1,20 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/common/bootstrap/crontab.js"
+    ],
+    "names": [
+        "think",
+        "cli",
+        "syncComment",
+        "firekylin",
+        "isInstalled",
+        "http",
+        "scheduleJob"
+    ],
+    "mappings": ";;AAAA;;;;AAEA;;;;AAEA,IAAG,CAACA,MAAMC,GAAV,EAAe;;AAEb,MAAIC,cAAc,SAAdA,WAAc,GAAM;AACtB,QAAG,CAACC,UAAUC,WAAd,EAA2B;AACzB;AACD;AACDJ,UAAMK,IAAN,CAAW,uBAAX,EAAoC,IAApC;AACD,GALD;AAMA,wBAAQC,WAAR,CAAoB,aAApB,EAAmCJ,WAAnC;;AAEA;AACAA;AACD",
+    "file": "../../../src/common/bootstrap/crontab.js",
+    "sourcesContent": [
+        "import crontab from 'node-crontab';\n\nimport './global';\n\nif(!think.cli) {\n\n  let syncComment = () => {\n    if(!firekylin.isInstalled) {\n      return;\n    }\n    think.http('/crontab/sync_comment', true);\n  }\n  crontab.scheduleJob('0 */1 * * *', syncComment);\n\n  //服务启动时同步一次\n  syncComment();\n}\n"
+    ]
+}

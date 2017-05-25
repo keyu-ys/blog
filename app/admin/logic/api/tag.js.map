@@ -1,0 +1,24 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../../src/admin/logic/api/tag.js"
+    ],
+    "names": [
+        "checkPathname",
+        "post",
+        "name",
+        "pathname",
+        "encodeURIComponent",
+        "postAction",
+        "rules",
+        "putAction",
+        "think",
+        "logic",
+        "base"
+    ],
+    "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;AAEE;;;mBAGAA,a,4BAAgB;AACd,QAAG,KAAKC,IAAL,CAAU,UAAV,CAAH,EAA0B;AAAE,aAAO,IAAP;AAAc;;AAE1C,QAAIC,OAAO,KAAKD,IAAL,CAAU,MAAV,CAAX;AACA,QAAIE,WAAWC,mBAAmBF,IAAnB,CAAf;AACA,SAAKD,IAAL,CAAU,UAAV,EAAsBE,QAAtB;AACD,G;;mBAEDE,U,yBAAa;AACX,SAAKC,KAAL,GAAa;AACXJ,YAAM;AADK,KAAb;;AAIA,SAAKF,aAAL;AACD,G;;mBAEDO,S,wBAAY;AACV,SAAKD,KAAL,GAAa;AACXJ,YAAM;AADK,KAAb;;AAIA,SAAKF,aAAL;AACD,G;;;EA3B0BQ,MAAMC,KAAN,CAAYC,I",
+    "file": "../../../../src/admin/logic/api/tag.js",
+    "sourcesContent": [
+        "export default class extends think.logic.base {\n\n  /**\n   * set tag pathname with encoding name when user haven't set.\n   */\n  checkPathname() {\n    if(this.post('pathname')) { return true; }\n\n    let name = this.post('name');\n    let pathname = encodeURIComponent(name);\n    this.post('pathname', pathname);\n  }\n\n  postAction() {\n    this.rules = {\n      name: 'required'\n    };\n\n    this.checkPathname();\n  }\n\n  putAction() {\n    this.rules = {\n      name: 'required'\n    };\n\n    this.checkPathname();\n  }\n}\n"
+    ]
+}

@@ -1,0 +1,30 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../../src/admin/service/import/hexo.js"
+    ],
+    "names": [
+        "tag",
+        "tags",
+        "Array",
+        "isArray",
+        "len",
+        "tagModelInstance",
+        "addTag",
+        "name",
+        "pathname",
+        "slug",
+        "result",
+        "type",
+        "category",
+        "categories",
+        "cateModelInstance",
+        "addCate",
+        "pid"
+    ],
+    "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;;;;;;;;;;;;;;AAGE;;;mBAGMA,G;;UAAKC,I,SAAAA,I;;;;;;;;oBACN,CAACA,IAAD,IAAS,CAACC,MAAMC,OAAN,CAAcF,IAAd,C;;;;;+CACJ,C;;;AAGLG,iB,GAAM,C;0BACKH,I;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAPD,kB;;qBACa,KAAKK,gBAAL,CAAsBC,MAAtB,CAA6B;AAC9CC,sBAAMP,KAAIO,IADoC;AAE9CC,0BAAUR,KAAIS;AAFgC,eAA7B,C;;;AAAfC,oB;;;AAKJ,kBAAGA,OAAOC,IAAP,KAAgB,KAAnB,EAA0B;AACxBP,uBAAO,CAAP;AACD;;;;;;;+CAGIA,G;;;;;;;;;;;;;;;;;AAGT;;;;;;mBAIMQ,Q;;UAAUC,U,SAAAA,U;;;;;;;;oBACX,CAACA,UAAD,IAAe,CAACX,MAAMC,OAAN,CAAcU,UAAd,C;;;;;gDACV,C;;;AAGLT,iB,GAAM,C;2BACUS,U;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAZD,uB;;qBACa,KAAKE,iBAAL,CAAuBC,OAAvB,CAA+B;AAChDR,sBAAMK,UAASL,IADiC;AAEhDC,0BAAUI,UAASH,IAF6B;AAGhDO,qBAAK;AAH2C,eAA/B,C;;;AAAfN,oB;;;AAMJ,kBAAGA,OAAOC,IAAP,KAAgB,KAAnB,EAA0B;AACxBP,uBAAO,CAAP;AACD;;;;;;;gDAGIA,G",
+    "file": "../../../../src/admin/service/import/hexo.js",
+    "sourcesContent": [
+        "import Ghost from './ghost';\n\nexport default class extends Ghost {\n  /**\n   * 导入标签\n   */\n  async tag({tags}) {\n    if(!tags || !Array.isArray(tags)) {\n      return 0;\n    }\n\n    var len = 0;\n    for(let tag of tags) {\n      let result = await this.tagModelInstance.addTag({\n        name: tag.name,\n        pathname: tag.slug\n      });\n\n      if(result.type === 'add') {\n        len += 1;\n      }\n    }\n\n    return len;\n  }\n\n  /**\n   * 导入分类\n   * 为了简单不支持子分类导入，默认所有分类为一级分类\n   */\n  async category({categories}) {\n    if(!categories || !Array.isArray(categories)) {\n      return 0;\n    }\n\n    var len = 0;\n    for(let category of categories) {\n      let result = await this.cateModelInstance.addCate({\n        name: category.name,\n        pathname: category.slug,\n        pid: 0\n      });\n\n      if(result.type === 'add') {\n        len += 1;\n      }\n    }\n\n    return len;\n  }\n}\n"
+    ]
+}

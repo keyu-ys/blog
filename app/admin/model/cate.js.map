@@ -1,0 +1,44 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/admin/model/cate.js"
+    ],
+    "names": [
+        "init",
+        "args",
+        "relation",
+        "post_cate",
+        "type",
+        "think",
+        "model",
+        "HAS_MANY",
+        "fKey",
+        "addCate",
+        "data",
+        "where",
+        "name",
+        "_logic",
+        "pathname",
+        "thenAdd",
+        "saveCate",
+        "id",
+        "find",
+        "info",
+        "isEmpty",
+        "reject",
+        "Error",
+        "update",
+        "deleteCate",
+        "cate_id",
+        "delete",
+        "getCount",
+        "userId",
+        "user_id",
+        "count"
+    ],
+    "mappings": "AAAA;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAEA;;;;;;AACA;;;;;;;;;;;AAIE;;;;;mBAKAA,I,mBAAc;AAAA;;AAAA,sCAANC,IAAM;AAANA,UAAM;AAAA;;AACZ,4CAAMD,IAAN,iDAAcC,IAAd;;AAEA,SAAKC,QAAL,GAAgB;AACdC,iBAAW;AACTC,cAAMC,MAAMC,KAAN,CAAYC,QADT;AAETC,cAAM;AAFG;AADG,KAAhB;AAMD,G;;AAED;;;;;;;mBAKAC,O,oBAAQC,I,EAAM;AACZ,QAAIC,QAAQ;AACVC,YAAMF,KAAKE,IADD;AAEVC,cAAQ;AAFE,KAAZ;AAIA,QAAGH,KAAKI,QAAR,EAAkB;AAChBH,YAAMG,QAAN,GAAiBJ,KAAKI,QAAtB;AACD;AACD,WAAO,KAAKH,KAAL,CAAWA,KAAX,EAAkBI,OAAlB,CAA0BL,IAA1B,CAAP;AACD,G;;mBAEKM,Q;2FAASN,I;;;;;;;qBACI,KAAKC,KAAL,CAAW,EAACM,IAAIP,KAAKO,EAAV,EAAX,EAA0BC,IAA1B,E;;;AAAbC,kB;;mBACDd,MAAMe,OAAN,CAAcD,IAAd,C;;;;;+CACM,kBAAQE,MAAR,CAAe,IAAIC,KAAJ,CAAU,gBAAV,CAAf,C;;;+CAGF,KAAKX,KAAL,CAAW,EAACM,IAAIP,KAAKO,EAAV,EAAX,EAA0BM,MAA1B,CAAiCb,IAAjC,C;;;;;;;;;;;;;;;;;mBAGHc,U;6FAAWC,O;;;;;AACf,mBAAKnB,KAAL,CAAW,WAAX,EAAwBK,KAAxB,CAA8B,EAACc,gBAAD,EAA9B,EAAyCC,MAAzC;gDACO,KAAKf,KAAL,CAAW,EAACM,IAAIQ,OAAL,EAAX,EAA0BC,MAA1B,E;;;;;;;;;;;;;;;;AAET;;;;;;;mBAKAC,Q,qBAASC,M,EAAQ;AACf,QAAGA,MAAH,EAAW;AACT,aAAO,KAAKjB,KAAL,CAAW,EAACkB,SAASD,MAAV,EAAX,EAA8BE,KAA9B,EAAP;AACD;AACD,WAAO,KAAKA,KAAL,EAAP;AACD,G",
+    "file": "../../../src/admin/model/cate.js",
+    "sourcesContent": [
+        "'use strict';\n\nimport Base from './base';\n/**\n * relation model\n */\nexport default class extends Base {\n  /**\n   * init\n   * @param  {} args []\n   * @return {}         []\n   */\n  init(...args) {\n    super.init(...args);\n\n    this.relation = {\n      post_cate: {\n        type: think.model.HAS_MANY,\n        fKey: 'cate_id'\n      }\n    }\n  }\n\n  /**\n   * 添加分类\n   * @param {[type]} data [description]\n   * @param {[type]} ip   [description]\n   */\n  addCate(data) {\n    let where = {\n      name: data.name,\n      _logic: 'OR'\n    };\n    if(data.pathname) {\n      where.pathname = data.pathname;\n    }\n    return this.where(where).thenAdd(data);\n  }\n\n  async saveCate(data) {\n    let info = await this.where({id: data.id}).find();\n    if(think.isEmpty(info)) {\n      return Promise.reject(new Error('CATE_NOT_EXIST'));\n    }\n\n    return this.where({id: data.id}).update(data);\n  }\n\n  async deleteCate(cate_id) {\n    this.model('post_cate').where({cate_id}).delete();\n    return this.where({id: cate_id}).delete();\n  }\n  /**\n   * get count posts\n   * @param  {Number} userId []\n   * @return {Promise}        []\n   */\n  getCount(userId) {\n    if(userId) {\n      return this.where({user_id: userId}).count();\n    }\n    return this.count();\n  }\n}\n"
+    ]
+}

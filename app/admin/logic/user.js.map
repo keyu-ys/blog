@@ -1,0 +1,29 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/admin/logic/user.js"
+    ],
+    "names": [
+        "indexAction",
+        "saveAction",
+        "allowMethods",
+        "rules",
+        "loginAction",
+        "isGet",
+        "username",
+        "required",
+        "minLength",
+        "password",
+        "length",
+        "factor",
+        "regexp",
+        "think",
+        "logic",
+        "base"
+    ],
+    "mappings": "AAAA;AACA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAME;;;;mBAIAA,W,0BAAc,CAEb,C;AACD;;;;;;mBAIAC,U,yBAAa;AACX,SAAKC,YAAL,GAAoB,MAApB;AACA,SAAKC,KAAL,GAAa,EAAb;AAGD,G;AACD;;;;;;mBAIAC,W,0BAAc;AACZ,SAAKF,YAAL,GAAoB,UAApB;AACA,QAAG,KAAKG,KAAL,EAAH,EAAiB;AACf;AACD;AACD,SAAKF,KAAL,GAAa;AACXG,gBAAU;AACRC,kBAAU,IADF;AAERC,mBAAW;AAFH,OADC;AAKXC,gBAAU;AACRF,kBAAU,IADF;AAERG,gBAAQ,CAAC,EAAD,EAAK,EAAL;AAFA,OALC;AASXC,cAAQ;AACNC,gBAAQ;AADF;AATG,KAAb;AAaD,G;;;EAxC0BC,MAAMC,KAAN,CAAYC,I",
+    "file": "../../../src/admin/logic/user.js",
+    "sourcesContent": [
+        "'use strict';\n/**\n * logic\n * @param  {} []\n * @return {}     []\n */\nexport default class extends think.logic.base {\n  /**\n   * index action logic\n   * @return {} []\n   */\n  indexAction() {\n\n  }\n  /**\n   * 添加或者修改用户\n   * @return {} []\n   */\n  saveAction() {\n    this.allowMethods = 'post';\n    this.rules = {\n\n    }\n  }\n  /**\n   * login\n   * @return {} []\n   */\n  loginAction() {\n    this.allowMethods = 'get,post';\n    if(this.isGet()) {\n      return;\n    }\n    this.rules = {\n      username: {\n        required: true,\n        minLength: 4\n      },\n      password: {\n        required: true,\n        length: [32, 32]\n      },\n      factor: {\n        regexp: /^\\d{6}$/\n      }\n    }\n  }\n}\n"
+    ]
+}

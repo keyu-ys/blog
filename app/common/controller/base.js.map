@@ -1,0 +1,22 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/common/controller/base.js"
+    ],
+    "names": [
+        "__before",
+        "model",
+        "getOptions",
+        "options",
+        "isAjax",
+        "assign",
+        "think",
+        "controller",
+        "base"
+    ],
+    "mappings": "AAAA;AACA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAIE;;;;mBAIMA,Q;;;;;;;;AAEJ;AACIC,mB,GAAQ,KAAKA,KAAL,CAAW,SAAX,C;;qBACQA,MAAMC,UAAN,E;;;AAAhBC,qB;;AACJ,mBAAKA,OAAL,GAAeA,OAAf;AACA,kBAAG,CAAC,KAAKC,MAAL,EAAJ,EAAmB;AACjB,qBAAKC,MAAL,CAAY,SAAZ,EAAuBF,OAAvB;AACD;;;;;;;;;;;;;;;;;;EAbwBG,MAAMC,UAAN,CAAiBC,I",
+    "file": "../../../src/common/controller/base.js",
+    "sourcesContent": [
+        "'use strict';\n/**\n * base controller\n */\nexport default class extends think.controller.base {\n  /**\n   * before magic method\n   * @return {} []\n   */\n  async __before() {\n\n    //get website options\n    let model = this.model('options');\n    let options = await model.getOptions();\n    this.options = options;\n    if(!this.isAjax()) {\n      this.assign('options', options);\n    }\n  }\n}\n"
+    ]
+}

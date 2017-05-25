@@ -1,0 +1,38 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../../src/admin/controller/api/tag.js"
+    ],
+    "names": [
+        "getAction",
+        "result",
+        "id",
+        "modelInstance",
+        "where",
+        "find",
+        "post_tag",
+        "length",
+        "select",
+        "map",
+        "item",
+        "success",
+        "postAction",
+        "data",
+        "post",
+        "addTag",
+        "ret",
+        "type",
+        "fail",
+        "putAction",
+        "saveTag",
+        "rows",
+        "affectedRows",
+        "deleteAction",
+        "deleteTag"
+    ],
+    "mappings": "AAAA;;;;;;;;;;;;;;;;;;;;;;;;AAEA;;;;;;;;;;;;;;AAGE;;;;mBAIMA,S;;;;;;;AACAC,oB;;mBACD,KAAKC,E;;;;;;qBACS,KAAKC,aAAL,CAAmBC,KAAnB,CAAyB,EAACF,IAAI,KAAKA,EAAV,EAAzB,EAAwCG,IAAxC,E;;;AAAfJ,oB;;AACAA,qBAAOK,QAAP,GAAkBL,OAAOK,QAAP,CAAgBC,MAAlC;;;;;;qBAEe,KAAKJ,aAAL,CAAmBK,MAAnB,E;;;AAAfP,oB;;AACAA,uBAASA,OAAOQ,GAAP,CAAW,gBAAQ;AAC1BC,qBAAKJ,QAAL,GAAgBI,KAAKJ,QAAL,CAAcC,MAA9B;AACA,uBAAOG,IAAP;AACD,eAHQ,CAAT;;;+CAKK,KAAKC,OAAL,CAAaV,MAAb,C;;;;;;;;;;;;;;;;AAET;;;;;;mBAIMW,U;;;;;;;AACAC,kB,GAAO,KAAKC,IAAL,E;;qBAEK,KAAKX,aAAL,CAAmBY,MAAnB,CAA0BF,IAA1B,C;;;AAAZG,iB;;oBACDA,IAAIC,IAAJ,KAAa,O;;;;;gDACP,KAAKC,IAAL,CAAU,WAAV,C;;;gDAEF,KAAKP,OAAL,CAAa,EAACT,IAAIc,IAAId,EAAT,EAAb,C;;;;;;;;;;;;;;;;AAET;;;;;;mBAIMiB,S;;;;;;;kBACC,KAAKjB,E;;;;;gDACD,KAAKgB,IAAL,CAAU,cAAV,C;;;AAELL,kB,GAAO,KAAKC,IAAL,E;;AACXD,mBAAKX,EAAL,GAAU,KAAKA,EAAf;;qBACiB,KAAKC,aAAL,CAAmBiB,OAAnB,CAA2BP,IAA3B,C;;;AAAbQ,kB;gDACG,KAAKV,OAAL,CAAa,EAACW,cAAcD,IAAf,EAAb,C;;;;;;;;;;;;;;;;;mBAGHE,Y;;;;;;kBACA,KAAKrB,E;;;;;gDACA,KAAKgB,IAAL,CAAU,cAAV,C;;;;qBAEH,KAAKf,aAAL,CAAmBqB,SAAnB,CAA6B,KAAKtB,EAAlC,C;;;gDACC,KAAKS,OAAL,E",
+    "file": "../../../../src/admin/controller/api/tag.js",
+    "sourcesContent": [
+        "'use strict';\n\nimport Base from './base';\n\nexport default class extends Base {\n  /**\n   * get\n   * @return {[type]} [description]\n   */\n  async getAction() {\n    let result;\n    if(this.id) {\n      result = await this.modelInstance.where({id: this.id}).find();\n      result.post_tag = result.post_tag.length;\n    } else {\n      result = await this.modelInstance.select();\n      result = result.map(item => {\n        item.post_tag = item.post_tag.length;\n        return item;\n      });\n    }\n    return this.success(result);\n  }\n  /**\n   * add user\n   * @return {[type]} [description]\n   */\n  async postAction() {\n    let data = this.post();\n\n    let ret = await this.modelInstance.addTag(data);\n    if(ret.type === 'exist') {\n      return this.fail('TAG_EXIST');\n    }\n    return this.success({id: ret.id});\n  }\n  /**\n   * update user info\n   * @return {[type]} [description]\n   */\n  async putAction() {\n    if (!this.id) {\n      return this.fail('PARAMS_ERROR');\n    }\n    let data = this.post();\n    data.id = this.id;\n    let rows = await this.modelInstance.saveTag(data);\n    return this.success({affectedRows: rows});\n  }\n\n  async deleteAction() {\n    if(!this.id) {\n      return this.fail('PARAMS_ERROR');\n    }\n    await this.modelInstance.deleteTag(this.id);\n    return this.success();\n  }\n}\n"
+    ]
+}

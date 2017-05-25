@@ -1,0 +1,39 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/common/bootstrap/global.js"
+    ],
+    "names": [
+        "global",
+        "firekylin",
+        "POST_PUBLIC",
+        "POST_ALLOW_COMMENT",
+        "POST_ARTICLE",
+        "POST_PAGE",
+        "POST_DRAFT",
+        "POST_AUDITING",
+        "POST_REJECT",
+        "POST_PUBLISH",
+        "USER_ADMIN",
+        "USER_EDITOR",
+        "USER_CONTRIBUTOR",
+        "USER_AVAILABLE",
+        "USER_DISABLED",
+        "isInstalled",
+        "installedFile",
+        "think",
+        "ROOT_PATH",
+        "sep",
+        "accessSync",
+        "F_OK",
+        "existsSync",
+        "e",
+        "setInstalled",
+        "writeFileSync"
+    ],
+    "mappings": ";;AAIA;;;;;;AAEAA,OAAOC,SAAP,GAAmB;AACjBC,eAAa,CADI;AAEjBC,sBAAoB,CAFH;AAGjBC,gBAAc,CAHG;AAIjBC,aAAW,CAJM;AAKjBC,cAAY,CALK;AAMjBC,iBAAe,CANE;AAOjBC,eAAa,CAPI;AAQjBC,gBAAc,CARG;AASjBC,cAAY,CATK;AAUjBC,eAAa,CAVI;AAWjBC,oBAAkB,CAXD;AAYjBC,kBAAgB,CAZC;AAajBC,iBAAe;AAbE,CAAnB;;AAgBA;;;;AAtBA;;;;AA0BAb,UAAUc,WAAV,GAAwB,KAAxB;AACA,IAAG;AACD,MAAIC,gBAAgBC,MAAMC,SAAN,GAAkBD,MAAME,GAAxB,GAA8B,YAAlD;AACA,MAAG,aAAGC,UAAH,IAAiB,aAAGA,UAAH,CAAcJ,aAAd,EAA6B,aAAGK,IAAhC,CAApB,EAA2D;AACzDpB,cAAUc,WAAV,GAAwB,IAAxB;AACD;AACD,MAAG,aAAGO,UAAH,CAAcN,aAAd,CAAH,EAAiC;AAC/Bf,cAAUc,WAAV,GAAwB,IAAxB;AACD;AACF,CARD,CAQC,OAAMQ,CAAN,EAAS,CAET;AADC;;;AAGF;;;;AAIAtB,UAAUuB,YAAV,GAAyB,YAAM;AAC7BvB,YAAUc,WAAV,GAAwB,IAAxB;AACA,MAAIC,gBAAgBC,MAAMC,SAAN,GAAkBD,MAAME,GAAxB,GAA8B,YAAlD;AACA,eAAGM,aAAH,CAAiBT,aAAjB,EAAgC,WAAhC;AACD,CAJD",
+    "file": "../../../src/common/bootstrap/global.js",
+    "sourcesContent": [
+        "/**\n * this file will be loaded before server started\n * you can define global functions used in controllers, models, templates\n */\nimport fs from 'fs';\n\nglobal.firekylin = {\n  POST_PUBLIC: 1,\n  POST_ALLOW_COMMENT: 1,\n  POST_ARTICLE: 0,\n  POST_PAGE: 1,\n  POST_DRAFT: 0,\n  POST_AUDITING: 1,\n  POST_REJECT: 2,\n  POST_PUBLISH: 3,\n  USER_ADMIN: 1,\n  USER_EDITOR: 2,\n  USER_CONTRIBUTOR: 3,\n  USER_AVAILABLE: 1,\n  USER_DISABLED: 2\n}\n\n/**\n * is installed\n * @type {Boolean}\n */\nfirekylin.isInstalled = false;\ntry{\n  let installedFile = think.ROOT_PATH + think.sep + '.installed';\n  if(fs.accessSync && fs.accessSync(installedFile, fs.F_OK)) {\n    firekylin.isInstalled = true;\n  }\n  if(fs.existsSync(installedFile)) {\n    firekylin.isInstalled = true;\n  }\n}catch(e) {\n  // fs.accessSync failed\n}\n\n/**\n * set app is installed\n * @return {[type]} [description]\n */\nfirekylin.setInstalled = () => {\n  firekylin.isInstalled = true;\n  let installedFile = think.ROOT_PATH + think.sep + '.installed';\n  fs.writeFileSync(installedFile, 'firekylin');\n}\n"
+    ]
+}

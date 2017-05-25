@@ -1,0 +1,40 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../../src/admin/service/import/base.js"
+    ],
+    "names": [
+        "init",
+        "args",
+        "userModelInstance",
+        "model",
+        "cateModelInstance",
+        "tagModelInstance",
+        "postModelInstance",
+        "pageModelInstance",
+        "setRelation",
+        "formatDate",
+        "date",
+        "format",
+        "toMarkdown",
+        "content",
+        "user",
+        "category",
+        "tag",
+        "post",
+        "page",
+        "parseFile",
+        "file",
+        "importData",
+        "data",
+        "think",
+        "service",
+        "base",
+        "DEFAULT_USER_PWD"
+    ],
+    "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;AAAA;;;;AACA;;;;;;;;;;;;;;mBAKEA,I,mBAAc;AAAA;;AAAA,sCAANC,IAAM;AAANA,UAAM;AAAA;;AACZ,2DAAMD,IAAN,kDAAcC,IAAd;AACA,SAAKC,iBAAL,GAAyB,KAAKC,KAAL,CAAW,MAAX,CAAzB;AACA,SAAKC,iBAAL,GAAyB,KAAKD,KAAL,CAAW,MAAX,CAAzB;AACA,SAAKE,gBAAL,GAAwB,KAAKF,KAAL,CAAW,KAAX,CAAxB;AACA,SAAKG,iBAAL,GAAyB,KAAKH,KAAL,CAAW,MAAX,CAAzB;AACA,SAAKI,iBAAL,GAAyB,KAAKJ,KAAL,CAAW,MAAX,EAAmBK,WAAnB,CAA+B,MAA/B,CAAzB;AACD,G;;mBAEDC,U,uBAAWC,I,EAAM;AACf,WAAO,sBAAOA,IAAP,EAAaC,MAAb,CAAoB,qBAApB,CAAP;AACD,G;;mBAEDC,U,uBAAWC,O,EAAS;AAClB,WAAO,0BAAWA,OAAX,CAAP;AACD,G;;AAED;;;;;mBAGMC,I;;;;;;;;;;;;;;;;;;;;AAIN;;;;;mBAGMC,Q;;;;;;;;;;;;;;;;;;;;AAIN;;;;;mBAGMC,G;;;;;;;;;;;;;;;;;;;;AAIN;;;;;mBAGMC,I;;;;;;;;;;;;;;;;;;;;AAIN;;;;;mBAGMC,I;;;;;;;;;;;;;;;;;;;;AAIN;;;;;mBAGMC,S;6FAAUC,I;;;;;;;;;;;;;;;;;;;mBAIVC,U;6FAAWC,I;;;;;;;qBACE,KAAKR,IAAL,CAAUQ,IAAV,C;;;AAAbR,kB;;qBACiB,KAAKC,QAAL,CAAcO,IAAd,C;;;AAAjBP,sB;;qBACY,KAAKC,GAAL,CAASM,IAAT,C;;;AAAZN,iB;;qBACa,KAAKC,IAAL,CAAUK,IAAV,C;;;AAAbL,kB;;qBACa,KAAKC,IAAL,CAAUI,IAAV,C;;;AAAbJ,kB;gDAEG,EAACJ,UAAD,EAAOG,UAAP,EAAaC,UAAb,EAAmBF,QAAnB,EAAwBD,kBAAxB,E;;;;;;;;;;;;;;;;;;EArEkBQ,MAAMC,OAAN,CAAcC,I;;OAClCC,gB,GAAmB,e",
+    "file": "../../../../src/admin/service/import/base.js",
+    "sourcesContent": [
+        "import moment from 'moment';\nimport toMarkdown from 'to-markdown';\n\nexport default class extends think.service.base {\n  static DEFAULT_USER_PWD = 'admin12345678';\n\n  init(...args) {\n    super.init(...args);\n    this.userModelInstance = this.model('user');\n    this.cateModelInstance = this.model('cate');\n    this.tagModelInstance = this.model('tag');\n    this.postModelInstance = this.model('post');\n    this.pageModelInstance = this.model('page').setRelation('user');\n  }\n\n  formatDate(date) {\n    return moment(date).format('YYYY-MM-DD HH:mm:ss');\n  }\n\n  toMarkdown(content) {\n    return toMarkdown(content);\n  }\n\n  /**\n   * 导入用户\n   */\n  async user() {\n\n  }\n\n  /**\n   * 导入分类\n   */\n  async category() {\n\n  }\n\n  /**\n   * 导入标签\n   */\n  async tag() {\n\n  }\n\n  /**\n   * 导入文章\n   */\n  async post() {\n\n  }\n\n  /**\n   * 导入页面\n   */\n  async page() {\n\n  }\n\n  /**\n   * 处理上传文件获取导入数据\n   */\n  async parseFile(file) {  // eslint-disable-line no-unused-vars\n\n  }\n\n  async importData(data) {\n    let user = await this.user(data);\n    let category = await this.category(data);\n    let tag = await this.tag(data);\n    let post = await this.post(data);\n    let page = await this.page(data);\n\n    return {user, post, page, tag, category};\n  }\n}\n"
+    ]
+}

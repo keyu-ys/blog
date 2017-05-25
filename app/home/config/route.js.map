@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/home/config/route.js"
+    ],
+    "names": [],
+    "mappings": ";;;AAAA;;;kBAGe,CACb,CAAC,+BAAD,EAAkC,mBAAlC,CADa,EAEb,CAAC,8BAAD,EAAiC,kBAAjC,CAFa,EAGb,CAAC,oCAAD,EAAuC,mBAAvC,CAHa,EAIb,CAAC,yBAAD,EAA4B,UAA5B,CAJa,EAKb,CAAC,2BAAD,EAA8B,aAA9B,CALa,EAMb,CAAC,kCAAD,EAAqC,uBAArC,CANa,EAOb,CAAC,kCAAD,EAAqC,yBAArC,CAPa,EASb,CAAC,SAAD,EAAY,0BAAZ,CATa,EAUb,CAAC,YAAD,EAAe,cAAf,CAVa,EAWb,CAAC,cAAD,EAAiB,mBAAjB,CAXa,EAYb,CAAC,aAAD,EAAgB,kBAAhB,CAZa,EAab,CAAC,mBAAD,EAAsB,mBAAtB,CAba,EAcb,CAAC,QAAD,EAAW,UAAX,CAda,EAeb,CAAC,SAAD,EAAY,0BAAZ,CAfa,EAgBb,CAAC,iBAAD,EAAoB,WAApB,CAhBa,EAiBb,CAAC,qBAAD,EAAwB,eAAxB,CAjBa,EAkBb,CAAC,UAAD,EAAa,aAAb,CAlBa,EAmBb,CAAC,iBAAD,EAAoB,uBAApB,CAnBa,EAoBb,CAAC,iBAAD,EAAoB,cAApB,CApBa,EAqBb,CAAC,iBAAD,EAAoB,yBAApB,CArBa,EAsBb,CAAC,gBAAD,EAAmB,kBAAnB,CAtBa,C",
+    "file": "../../../src/home/config/route.js",
+    "sourcesContent": [
+        "/**\n * route\n */\nexport default [\n  [/^cate\\/(.+)(?:\\.html|\\.json)$/, 'post/list?cate=:1'],\n  [/^tag\\/(.+)(?:\\.html|\\.json)$/, 'post/list?tag=:1'],\n  [/^author\\/([^/]+)(?:\\.html|\\.json)$/, 'post/list?name=:1'],\n  [/^tags(?:\\.html|\\.json)$/, 'post/tag'],\n  [/^search(?:\\.html|\\.json)$/, 'post/search'],\n  [/^page\\/([^/]+)(?:\\.html|\\.json)$/, 'post/page?pathname=:1'],\n  [/^post\\/([^/]+)(?:\\.html|\\.json)$/, 'post/detail?pathname=:1'],\n\n  [/^about$/, 'post/page?pathname=about'],\n  [/^archives$/, 'post/archive'],\n  [/^cate\\/(.+)$/, 'post/list?cate=:1'],\n  [/^tag\\/(.+)$/, 'post/list?tag=:1'],\n  [/^author\\/([^/]+)$/, 'post/list?name=:1'],\n  [/^tags$/, 'post/tag'],\n  [/^links$/, 'post/page?pathname=links'],\n  [/^rss(?:\\.xml)?$/, 'index/rss'],\n  [/^sitemap(?:\\.xml)?$/, 'index/sitemap'],\n  [/^search$/, 'post/search'],\n  [/^page\\/([^/]+)$/, 'post/page?pathname=:1'],\n  [/^post\\/sitemap$/, 'post/sitemap'],\n  [/^post\\/([^/]+)$/, 'post/detail?pathname=:1'],\n  ['opensearch.xml', 'index/opensearch']\n];\n"
+    ]
+}

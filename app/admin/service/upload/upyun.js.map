@@ -1,0 +1,37 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../../src/admin/service/upload/upyun.js"
+    ],
+    "names": [
+        "uploadMethod",
+        "filename",
+        "config",
+        "upyunInstance",
+        "upyunBucket",
+        "operater",
+        "password",
+        "apiVersion",
+        "savePath",
+        "getSavePath",
+        "upyunPrefix",
+        "resolve",
+        "reject",
+        "putFile",
+        "err",
+        "res",
+        "statusCode",
+        "origin",
+        "getAbsOrigin",
+        "upyunOrigin",
+        "compeletePath",
+        "run",
+        "file",
+        "upload"
+    ],
+    "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;;;;AACA;;;;;;;;;;;;;;AAGE;mBACMA,Y;2FAAaC,Q,EAAUC,M;;;;;;;;AACrBC,2B,GAAgB,oBACpBD,OAAOE,WADa,EACAF,OAAOG,QADP,EACiBH,OAAOI,QADxB,EACkC,kBADlC,EACsD,EAAEC,YAAY,IAAd,EADtD,C;AAGhBC,sB,GAAW,KAAKC,WAAL,CAAiBR,QAAjB,EAA2BC,OAAOQ,WAAlC,C;+CACV,sBAAY,UAACC,OAAD,EAAUC,MAAV,EAAqB;AACtCT,8BAAcU,OAAd,CAAsBL,QAAtB,EAAgCP,QAAhC,EAA0C,IAA1C,EAAgD,KAAhD,EAAuD;AACrD,8BAAY;AADyC,iBAAvD,EAEG,UAACa,GAAD,EAAMC,GAAN,EAAc;AACf,sBAAID,GAAJ,EAAS;AACPF,2BAAOE,GAAP;AACD,mBAFD,MAEO;AACL,wBAAIC,IAAIC,UAAJ,KAAmB,GAAvB,EAA4B;AAC1B,0BAAMC,SAAS,OAAKC,YAAL,CAAkBhB,OAAOiB,WAAzB,CAAf;AACA,0BAAMC,gBAAmBH,MAAnB,SAA6BT,QAAnC;AACAG,8BAAQS,aAAR;AACD,qBAJD,MAIO;AACLR,6BAAOG,GAAP;AACD;AACF;AACF,iBAdD;AAeD,eAhBM,C;;;;;;;;;;;;;;;;;AAmBT;;;mBACMM,G;6FAAIC,I,EAAMpB,M;;;;;;qBACD,KAAKqB,MAAL,CAAYD,IAAZ,EAAkBpB,MAAlB,C",
+    "file": "../../../../src/admin/service/upload/upyun.js",
+    "sourcesContent": [
+        "import upyun from 'upyun';\nimport Base from './base';\n\nexport default class extends Base {\n  // 导入方法\n  async uploadMethod(filename, config) {\n    const upyunInstance = new upyun(\n      config.upyunBucket, config.operater, config.password, 'v0.api.upyun.com', { apiVersion: 'v2' }\n    );\n    const savePath = this.getSavePath(filename, config.upyunPrefix);\n    return new Promise((resolve, reject) => {\n      upyunInstance.putFile(savePath, filename, null, false, {\n        'save-key': '/{year}{mon}{day}/{filename}{.suffix}'\n      }, (err, res) => {\n        if (err) {\n          reject(err);\n        } else {\n          if (res.statusCode === 200) {\n            const origin = this.getAbsOrigin(config.upyunOrigin);\n            const compeletePath = `${origin}/${savePath}`;\n            resolve(compeletePath);\n          } else {\n            reject(res);\n          }\n        }\n      });\n    });\n  }\n\n  // 执行方法\n  async run(file, config) {\n    return await this.upload(file, config);\n  }\n}\n"
+    ]
+}

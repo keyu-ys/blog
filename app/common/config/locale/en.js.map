@@ -1,0 +1,44 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../../src/common/config/locale/en.js"
+    ],
+    "names": [
+        "USER_NOT_LOGIN",
+        "USER_EXIST",
+        "USER_NO_PERMISSION",
+        "PARAMS_ERROR",
+        "DATA_EMPTY",
+        "ACCOUNT_ERROR",
+        "CATE_EXIST",
+        "TAG_EXIST",
+        "TWO_FACTOR_AUTH_ERROR",
+        "TWO_FACTOR_AUTH_ERROR_DETAIL",
+        "APP_KEY_SECRET_ERROR",
+        "FILE_UPLOAD_ERROR",
+        "FILE_UPLOAD_MOVE_ERROR",
+        "UPLOAD_URL_ERROR",
+        "UPLOAD_TYPE_ERROR",
+        "INVALID_FILE",
+        "KEY_EMPTY",
+        "KEY_EXIST",
+        "PATHNAME_EXIST",
+        "ACCESS_ERROR",
+        "NOT_LOGIN",
+        "ACTION_NOT_FOUND",
+        "POSTER_NOT_EXIST",
+        "KEY_CHECK_SUCCESS",
+        "KEY_CHECK_FAILED",
+        "POST_CONTENT_ERROR",
+        "POST_USER_ERROR",
+        "ACCOUNT_FORBIDDEN",
+        "SYSTERM_INSTALLED",
+        "PUSH_CLOSED",
+        "DELETE_CURRENT_USER_ERROR"
+    ],
+    "mappings": "AAAA;;;kBAEe;AACbA,kBAAgB,CAAC,GAAD,EAAM,KAAN,CADH;AAEbC,cAAY,CAAC,GAAD,EAAM,YAAN,CAFC;AAGbC,sBAAoB,CAAC,GAAD,EAAM,MAAN,CAHP;AAIbC,gBAAc,CAAC,GAAD,EAAM,MAAN,CAJD;AAKbC,cAAY,CAAC,GAAD,EAAM,QAAN,CALC;AAMbC,iBAAe,CAAC,GAAD,EAAM,WAAN,CANF;AAObC,cAAY,CAAC,GAAD,EAAM,eAAN,CAPC;AAQbC,aAAW,CAAC,GAAD,EAAM,eAAN,CARE;AASbC,yBAAuB,CAAC,GAAD,EAAM,SAAN,CATV;AAUbC,gCAA8B,CAAC,GAAD,EAAM,0BAAN,CAVjB;AAWbC,wBAAsB,CAAC,GAAD,EAAM,YAAN,CAXT;AAYbC,qBAAmB,CAAC,GAAD,EAAM,QAAN,CAZN;AAabC,0BAAwB,CAAC,GAAD,EAAM,WAAN,CAbX;AAcbC,oBAAkB,CAAC,GAAD,EAAM,iBAAN,CAdL;AAebC,qBAAmB,CAAC,GAAD,EAAM,aAAN,CAfN;AAgBbC,gBAAc,CAAC,GAAD,EAAM,YAAN,CAhBD;AAiBbC,aAAW,CAAC,GAAD,EAAM,QAAN,CAjBE;AAkBbC,aAAW,CAAC,GAAD,EAAM,QAAN,CAlBE;AAmBbC,kBAAgB,CAAC,GAAD,EAAM,UAAN,CAnBH;AAoBbC,gBAAc,CAAC,GAAD,EAAM,MAAN,CApBD;AAqBbC,aAAW,CAAC,GAAD,EAAM,MAAN,CArBE;AAsBbC,oBAAkB,CAAC,GAAD,EAAM,OAAN,CAtBL;AAuBbC,oBAAkB,CAAC,GAAD,EAAM,YAAN,CAvBL;AAwBbC,qBAAmB,CAAC,GAAD,EAAM,QAAN,CAxBN;AAyBbC,oBAAkB,CAAC,GAAD,EAAM,QAAN,CAzBL;AA0BbC,sBAAoB,CAAC,GAAD,EAAM,QAAN,CA1BP;AA2BbC,mBAAiB,CAAC,GAAD,EAAM,cAAN,CA3BJ;AA4BbC,qBAAmB,CAAC,GAAD,EAAM,MAAN,CA5BN;AA6BbC,qBAAmB,CAAC,GAAD,EAAM,aAAN,CA7BN;AA8BbC,eAAa,CAAC,GAAD,EAAM,WAAN,CA9BA;AA+BbC,6BAA2B,CAAC,GAAD,EAAM,YAAN;AA/Bd,C",
+    "file": "../../../../src/common/config/locale/en.js",
+    "sourcesContent": [
+        "'use strict';\n\nexport default {\n  USER_NOT_LOGIN: [403, '未登录'],\n  USER_EXIST: [100, '用户名或邮箱已经存在'],\n  USER_NO_PERMISSION: [101, '没有权限'],\n  PARAMS_ERROR: [102, '参数错误'],\n  DATA_EMPTY: [103, '数据不能为空'],\n  ACCOUNT_ERROR: [104, '用户名或者密码错误'],\n  CATE_EXIST: [105, '分类名称或者缩略名已经存在'],\n  TAG_EXIST: [106, '标签名称或者缩略名已经存在'],\n  TWO_FACTOR_AUTH_ERROR: [107, '两步校验码错误'],\n  TWO_FACTOR_AUTH_ERROR_DETAIL: [107, '两步校验码错误，请确认校验码或服务器时间是否正确'],\n  APP_KEY_SECRET_ERROR: [108, '推送公钥或者私钥错误'],\n  FILE_UPLOAD_ERROR: [109, '文件上传错误'],\n  FILE_UPLOAD_MOVE_ERROR: [109, '文件上传后移动错误'],\n  UPLOAD_URL_ERROR: [109, 'URL参数不合法或者请求失败！'],\n  UPLOAD_TYPE_ERROR: [109, '请求的资源不是一张图片'],\n  INVALID_FILE: [109, '文件格式错误无法解析'],\n  KEY_EMPTY: [110, '公钥不能为空'],\n  KEY_EXIST: [110, '公钥已经存在'],\n  PATHNAME_EXIST: [111, '文章地址已经存在'],\n  ACCESS_ERROR: [112, '权限错误'],\n  NOT_LOGIN: [115, '暂未登录'],\n  ACTION_NOT_FOUND: [116, '暂无该路由'],\n  POSTER_NOT_EXIST: [117, '该密钥对暂无对应用户'],\n  KEY_CHECK_SUCCESS: [117, '密钥认证成功'],\n  KEY_CHECK_FAILED: [117, '密钥认证失败'],\n  POST_CONTENT_ERROR: [118, '文章内容错误'],\n  POST_USER_ERROR: [118, '当前用户与文章用户不一致'],\n  ACCOUNT_FORBIDDEN: [119, '禁止登录'],\n  SYSTERM_INSTALLED: [120, '程序已安装请勿重复安装'],\n  PUSH_CLOSED: [121, '推送申请功能未开启'],\n  DELETE_CURRENT_USER_ERROR: [122, '不能删除当前登录用户']\n};\n"
+    ]
+}

@@ -1,0 +1,40 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/home/model/cate.js"
+    ],
+    "names": [
+        "relation",
+        "post_cate",
+        "type",
+        "think",
+        "model",
+        "HAS_MANY",
+        "field",
+        "getCateArchive",
+        "join",
+        "table",
+        "on",
+        "where",
+        "status",
+        "is_public",
+        "order",
+        "select",
+        "data",
+        "result",
+        "cate",
+        "pathname",
+        "count",
+        "name",
+        "encodeURIComponent",
+        "update_time",
+        "sort",
+        "a",
+        "b"
+    ],
+    "mappings": "AAAA;AACA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;gLAKEA,Q,GAAW;AACTC,iBAAW;AACTC,cAAMC,MAAMC,KAAN,CAAYC,QADT;AAETC,eAAO;AAFE;AADF,K;;;mBAOLC,c;;;;;;;;;qBACa,KAAKH,KAAL,CAAW,WAAX,EACdI,IADc,CACT;AACJC,uBAAO,MADH;AAEJC,oBAAI,CAAC,SAAD,EAAY,IAAZ;AAFA,eADS,EAKdF,IALc,CAKT;AACJC,uBAAO,MADH;AAEJC,oBAAI,CAAC,SAAD,EAAY,IAAZ;AAFA,eALS,EASdC,KATc,CASR;AACLT,sBAAM,CADD;AAELU,wBAAQ,CAFH;AAGLC,2BAAW;AAHN,eATQ,EAcdC,KAdc,CAcR,kBAdQ,EAedC,MAfc,E;;;AAAbC,kB;AAiBAC,oB,GAAS,E;0BACGD,I;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAARE,kB;;AACN,kBAAGD,OAAOC,KAAKC,QAAZ,CAAH,EAA0B;AACxBF,uBAAOC,KAAKC,QAAZ,EAAsBC,KAAtB,IAA+B,CAA/B;AACD,eAFD,MAEO;AACLH,uBAAOC,KAAKC,QAAZ,IAAwB;AACtBE,wBAAMH,KAAKG,IADW;AAEtBF,4BAAUG,mBAAmBJ,KAAKC,QAAxB,CAFY;AAGtBI,+BAAaL,KAAKK,WAHI;AAItBH,yBAAO;AAJe,iBAAxB;AAMD;;;;;;;+CAEI,sBAAcH,MAAd,EAAsBO,IAAtB,CAA2B,UAACC,CAAD,EAAIC,CAAJ;AAAA,uBAASD,EAAEL,KAAF,GAAQM,EAAEN,KAAV,GAAkB,CAAC,CAAnB,GAAuB,CAAhC;AAAA,eAA3B,C;;;;;;;;;;;;;;;;;;EAxCkBjB,MAAMC,KAAN,CAAYJ,Q",
+    "file": "../../../src/home/model/cate.js",
+    "sourcesContent": [
+        "'use strict';\n/**\n * model\n */\nexport default class extends think.model.relation {\n\n  relation = {\n    post_cate: {\n      type: think.model.HAS_MANY,\n      field: 'cate_id'\n    }\n  };\n\n  async getCateArchive() {\n    let data = await this.model('post_cate')\n      .join({\n        table: 'post',\n        on: ['post_id', 'id']\n      })\n      .join({\n        table: 'cate',\n        on: ['cate_id', 'id']\n      })\n      .where({\n        type: 0,\n        status: 3,\n        is_public: 1\n      })\n      .order('update_time DESC')\n      .select();\n\n    let result = {};\n    for(let cate of data) {\n      if(result[cate.pathname]) {\n        result[cate.pathname].count += 1;\n      } else {\n        result[cate.pathname] = {\n          name: cate.name,\n          pathname: encodeURIComponent(cate.pathname),\n          update_time: cate.update_time,\n          count: 1\n        };\n      }\n    }\n    return Object.values(result).sort((a, b)=> a.count>b.count ? -1 : 1);\n  }\n}\n"
+    ]
+}

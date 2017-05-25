@@ -1,0 +1,16 @@
+Dockerfile
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.*
+
+npm-debug.log
+node_modules
+.idea
+
+

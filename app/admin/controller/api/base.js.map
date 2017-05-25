@@ -1,0 +1,28 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../../src/admin/controller/api/base.js"
+    ],
+    "names": [
+        "http",
+        "allowList",
+        "_method",
+        "__before",
+        "session",
+        "userInfo",
+        "think",
+        "isEmpty",
+        "fail",
+        "type",
+        "action",
+        "name",
+        "controller",
+        "indexOf",
+        "rest"
+    ],
+    "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;;;;;;AASE;;;;;AAKA,kBAAYA,IAAZ,EAAkB;AAAA;;AAAA,+DAChB,iCAAMA,IAAN,CADgB;;AAAA,UANlBC,SAMkB,GANN,CAAC,cAAD,EAAiB,eAAjB,EAAkC,iBAAlC,EAAqD,eAArD,CAMM;;AAEhB,UAAKC,OAAL,GAAe,QAAf;AAFgB;AAGjB;AACD;;;;;AAdA;;;;;;mBAkBMC,Q;;;;;;;;qBACiB,KAAKC,OAAL,CAAa,UAAb,C;;;;;;;;;;4BAA4B,E;;;AAA7CC,sB;;mBACDC,MAAMC,OAAN,CAAcF,QAAd,C;;;;;+CACM,KAAKG,IAAL,CAAU,gBAAV,C;;;AAET,mBAAKH,QAAL,GAAgBA,QAAhB;AACII,kB,GAAOJ,SAASI,IAAT,GAAgB,C;AAC3B;;oBACGA,SAAS,C;;;;;AACNC,oB,GAAS,KAAKV,IAAL,CAAUU,M;;oBACpBA,WAAW,K;;;;;;;;AAGVC,kB,GAAO,KAAKX,IAAL,CAAUY,UAAV,GAAuB,GAAvB,GAA6B,KAAKZ,IAAL,CAAUU,M;;oBAC/C,KAAKT,SAAL,CAAeY,OAAf,CAAuBF,IAAvB,IAA+B,CAAC,C;;;;;;;;+CAG5B,KAAKH,IAAL,CAAU,oBAAV,C;;;;;;;;;;;;;;;;;;EApCgBF,MAAMM,UAAN,CAAiBE,I",
+    "file": "../../../../src/admin/controller/api/base.js",
+    "sourcesContent": [
+        "/**\n * base rest controller\n */\nexport default class extends think.controller.rest {\n  /**\n   * allow list for user\n   * @type {Array}\n   */\n  allowList = ['api/post/put', 'api/post/post', 'api/post/delete', 'api/file/post'];\n  /**\n   * [constructor description]\n   * @param  {[type]} http [description]\n   * @return {[type]}      [description]\n   */\n  constructor(http) {\n    super(http);\n    this._method = 'method';\n  }\n  /**\n   * before\n   * @return {} []\n   */\n  async __before() {\n    let userInfo = await this.session('userInfo') || {};\n    if(think.isEmpty(userInfo)) {\n      return this.fail('USER_NOT_LOGIN');\n    }\n    this.userInfo = userInfo;\n    let type = userInfo.type | 0;\n    //not admin\n    if(type !== 1) {\n      let action = this.http.action;\n      if(action === 'get') {\n        return;\n      }\n      let name = this.http.controller + '/' + this.http.action;\n      if(this.allowList.indexOf(name) > -1) {\n        return;\n      }\n      return this.fail('USER_NO_PERMISSION');\n    }\n  }\n}\n"
+    ]
+}

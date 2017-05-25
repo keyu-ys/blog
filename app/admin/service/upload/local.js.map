@@ -1,0 +1,39 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../../src/admin/service/upload/local.js"
+    ],
+    "names": [
+        "renameAsync",
+        "think",
+        "promisify",
+        "rename",
+        "uploadMethod",
+        "file",
+        "name",
+        "ext",
+        "test",
+        "extname",
+        "basename",
+        "destDir",
+        "formatNow",
+        "destPath",
+        "join",
+        "UPLOAD_PATH",
+        "isDir",
+        "mkdir",
+        "filepath",
+        "resolve",
+        "UPLOAD_BASE_URL",
+        "replace",
+        "RESOURCE_PATH",
+        "Error",
+        "run",
+        "config"
+    ],
+    "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;AAAA;;;;AACA;;;;AACA;;;;AACA;;;;;;AAEA,IAAMA,cAAcC,MAAMC,SAAN,CAAgB,aAAGC,MAAnB,eAApB;;;;;;;;;;mBAEQC,Y;2FAAaC,I;UAAOC,I,SAAAA,I;;;;;;AACpBC,iB,GAAM,UAAUC,IAAV,CAAe,eAAKC,OAAL,CAAaJ,IAAb,CAAf,IAAqC,eAAKI,OAAL,CAAaJ,IAAb,CAArC,GAA0D,M;AAChEK,sB,GAAW,CAACJ,QAAQ,eAAKI,QAAL,CAAcL,IAAd,EAAoBE,GAApB,CAAT,IAAqCA,G;AAEhDI,qB,GAAU,KAAKC,SAAL,E;AACVC,sB,GAAW,eAAKC,IAAL,CAAUb,MAAMc,WAAhB,EAA6BJ,OAA7B,C;;AACf,kBAAG,CAACV,MAAMe,KAAN,CAAYH,QAAZ,CAAJ,EAA2B;AACzBZ,sBAAMgB,KAAN,CAAYJ,QAAZ;AACD;;;;AAGC;AACIK,sB,GAAW,eAAKJ,IAAL,CAAUD,QAAV,EAAoBH,QAApB,C;;qBACTV,YAAYK,IAAZ,EAAkBa,QAAlB,C;;;+CACC,cAAIC,OAAJ,CAAYlB,MAAMmB,eAAlB,EAAmCF,SAASG,OAAT,CAAiBpB,MAAMqB,aAAvB,EAAsC,EAAtC,CAAnC,C;;;;;oBAEDC,MAAM,wBAAN,C;;;;;;;;;;;;;;;;;mBAIJC,G;6FAAInB,I,EAAMoB,M;;;;;;qBACD,KAAKrB,YAAL,CAAkBC,IAAlB,EAAwBoB,MAAxB,C",
+    "file": "../../../../src/admin/service/upload/local.js",
+    "sourcesContent": [
+        "import fs from 'fs';\nimport url from 'url';\nimport path from 'path';\nimport Base from './base';\n\nconst renameAsync = think.promisify(fs.rename, fs);\nexport default class extends Base {\n  async uploadMethod(file, {name}) {\n    let ext = /^\\.\\w+$/.test(path.extname(file)) ? path.extname(file) : '.png';\n    let basename = (name || path.basename(file, ext)) + ext;\n\n    let destDir = this.formatNow();\n    let destPath = path.join(think.UPLOAD_PATH, destDir);\n    if(!think.isDir(destPath)) {\n      think.mkdir(destPath);\n    }\n\n    try {\n      // 上传文件路径\n      let filepath = path.join(destPath, basename);\n      await renameAsync(file, filepath);\n      return url.resolve(think.UPLOAD_BASE_URL, filepath.replace(think.RESOURCE_PATH, ''));\n    } catch(e) {\n      throw Error('FILE_UPLOAD_MOVE_ERROR');\n    }\n  }\n\n  async run(file, config) {\n    return await this.uploadMethod(file, config);\n  }\n}\n"
+    ]
+}

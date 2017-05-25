@@ -1,0 +1,28 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/common/config/config.js"
+    ],
+    "names": [
+        "port",
+        "portFile",
+        "think",
+        "ROOT_PATH",
+        "sep",
+        "isFile",
+        "readFileSync",
+        "host",
+        "hostFile",
+        "process",
+        "env",
+        "HOST",
+        "PORT",
+        "resource_reg",
+        "resource_headers"
+    ],
+    "mappings": "AAAA;;;;AAEA;;;;;;AAEA,IAAIA,aAAJ;AACA,IAAIC,WAAWC,MAAMC,SAAN,GAAkBD,MAAME,GAAxB,GAA8B,MAA7C;AACA,IAAGF,MAAMG,MAAN,CAAaJ,QAAb,CAAH,EAA2B;AACzBD,SAAO,aAAGM,YAAH,CAAgBL,QAAhB,EAA0B,MAA1B,CAAP;AACD;;AAED,IAAIM,aAAJ;AACA,IAAIC,WAAWN,MAAMC,SAAN,GAAkBD,MAAME,GAAxB,GAA8B,MAA7C;AACA,IAAGF,MAAMG,MAAN,CAAaG,QAAb,CAAH,EAA2B;AACzBD,SAAO,aAAGD,YAAH,CAAgBE,QAAhB,EAA0B,MAA1B,CAAP;AACD;;AAED;;;kBAGe;AACbD,QAAMA,QAAQE,QAAQC,GAAR,CAAYC,IAApB,IAA4B,SADrB;AAEbX,QAAMA,QAAQS,QAAQC,GAAR,CAAYE,IAApB,IAA4B,IAFrB;AAGbC,gBAAc,iDAHD;AAIbC,oBAAkB;AAChB,qBAAiB;AADD;AAJL,C",
+    "file": "../../../src/common/config/config.js",
+    "sourcesContent": [
+        "'use strict';\n\nimport fs from 'fs';\n\nlet port;\nlet portFile = think.ROOT_PATH + think.sep + 'port';\nif(think.isFile(portFile)) {\n  port = fs.readFileSync(portFile, 'utf8');\n}\n\nlet host;\nlet hostFile = think.ROOT_PATH + think.sep + 'host';\nif(think.isFile(hostFile)) {\n  host = fs.readFileSync(hostFile, 'utf8');\n}\n\n/**\n * config\n */\nexport default {\n  host: host || process.env.HOST || '0.0.0.0',\n  port: port || process.env.PORT || 8360,\n  resource_reg: /^(static\\/|theme\\/|[^\\/]+\\.(?!js|html|xml)\\w+$)/,\n  resource_headers: {\n    'Cache-Control': 'public, max-age=31536000',\n  }\n};\n"
+    ]
+}

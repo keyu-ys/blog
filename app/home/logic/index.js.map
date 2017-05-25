@@ -1,0 +1,25 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/home/logic/index.js"
+    ],
+    "names": [
+        "indexAction",
+        "installAction",
+        "isGet",
+        "rules",
+        "db_account",
+        "db_name",
+        "username",
+        "password",
+        "validate",
+        "think",
+        "logic",
+        "base"
+    ],
+    "mappings": "AAAA;AACA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAME;;;;mBAIAA,W,0BAAc,CAEb,C;AACD;;;;;;mBAIAC,a,4BAAgB;AACd,QAAG,KAAKC,KAAL,EAAH,EAAiB;AACf;AACD;AACD,SAAKC,KAAL,GAAa;AACXC,kBAAY,UADD;AAEXC,eAAS,UAFE;AAGXC,gBAAU,sBAHC;AAIXC,gBAAU;AAJC,KAAb;AAMA,SAAKC,QAAL,CAAc,KAAKL,KAAnB;AACD,G;;;EAvB0BM,MAAMC,KAAN,CAAYC,I",
+    "file": "../../../src/home/logic/index.js",
+    "sourcesContent": [
+        "'use strict';\n/**\n * logic\n * @param  {} []\n * @return {}     []\n */\nexport default class extends think.logic.base {\n  /**\n   * index action logic\n   * @return {} []\n   */\n  indexAction() {\n\n  }\n  /**\n   * install\n   * @return {[type]} [description]\n   */\n  installAction() {\n    if(this.isGet()) {\n      return;\n    }\n    this.rules = {\n      db_account: 'required',\n      db_name: 'required',\n      username: 'required|minLength:4',\n      password: 'required|minLength:8'\n    }\n    this.validate(this.rules);\n  }\n}\n"
+    ]
+}

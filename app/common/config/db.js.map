@@ -1,0 +1,16 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/common/config/db.js"
+    ],
+    "names": [
+        "exports",
+        "__esModule",
+        "default"
+    ],
+    "mappings": ";AACM;;AACAA,QAAQC,UAAR,GAAqB,IAArB;AACAD,QAAQE,OAAR,GAAkB;AACpB,YAAQ,OADY;AAEpB,eAAW;AACP,iBAAS;AACL,oBAAQ,WADH;AAEL,oBAAQ,MAFH;AAGL,wBAAY,MAHP;AAIL,oBAAQ,MAJH;AAKL,wBAAY,cALP;AAML,sBAAU,KANL;AAOL,oBAAQ;AAPH;AADF;AAFS,CAAlB",
+    "file": "../../../src/common/config/db.js",
+    "sourcesContent": [
+        "\n      \"use strict\";\n      exports.__esModule = true;\n      exports.default = {\n    \"type\": \"mysql\",\n    \"adapter\": {\n        \"mysql\": {\n            \"host\": \"127.0.0.1\",\n            \"port\": \"3306\",\n            \"database\": \"blog\",\n            \"user\": \"root\",\n            \"password\": \"a13660858829\",\n            \"prefix\": \"fk_\",\n            \"type\": \"mysql\"\n        }\n    }\n}\n    "
+    ]
+}

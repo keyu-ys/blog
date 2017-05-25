@@ -1,0 +1,19 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/home/controller/crontab.js"
+    ],
+    "names": [
+        "syncCommentAction",
+        "SyncService",
+        "service",
+        "instance",
+        "sync",
+        "success"
+    ],
+    "mappings": "AAAA;;;;;;;;;;;;;;;;;;;;;;;;AAEA;;;;;;;;;;;;;;AAGE;;;;mBAIMA,iB;;;;;;;AACAC,yB,GAAc,KAAKC,OAAL,CAAa,SAAb,C;AACdC,sB,GAAW,IAAIF,WAAJ,E;;qBACTE,SAASC,IAAT,E;;;AACN,mBAAKC,OAAL",
+    "file": "../../../src/home/controller/crontab.js",
+    "sourcesContent": [
+        "'use strict';\n\nimport Base from './base';\n\nexport default class extends Base {\n  /**\n   * sync comment num\n   * @return {[type]} [description]\n   */\n  async syncCommentAction() {\n    let SyncService = this.service('comment');\n    let instance = new SyncService();\n    await instance.sync();\n    this.success();\n  }\n}\n"
+    ]
+}

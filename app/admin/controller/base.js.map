@@ -1,0 +1,42 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/admin/controller/base.js"
+    ],
+    "names": [
+        "__before",
+        "http",
+        "controller",
+        "action",
+        "session",
+        "userInfo",
+        "think",
+        "isEmpty",
+        "isAjax",
+        "fail",
+        "assign",
+        "id",
+        "name",
+        "type",
+        "__call",
+        "model",
+        "getOptions",
+        "options",
+        "two_factor_auth",
+        "analyze_code",
+        "escape",
+        "comment",
+        "navigation",
+        "JSON",
+        "parse",
+        "e",
+        "push_sites",
+        "display",
+        "base"
+    ],
+    "mappings": "AAAA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAGE;;;mBAGMA,Q;;;;;;;AAEAC,kB,GAAO,KAAKA,I;;oBACbA,KAAKC,UAAL,KAAoB,MAApB,IAA8BD,KAAKE,MAAL,KAAgB,O;;;;;;;;;qBAG5B,KAAKC,OAAL,CAAa,UAAb,C;;;;;;;;;;4BAA4B,E;;;AAA7CC,sB;;mBACDC,MAAMC,OAAN,CAAcF,QAAd,C;;;;;mBACE,KAAKG,MAAL,E;;;;;+CACM,KAAKC,IAAL,CAAU,WAAV,C;;;AAGX,mBAAKJ,QAAL,GAAgBA,QAAhB;AACA,kBAAG,CAAC,KAAKG,MAAL,EAAJ,EAAmB;AACjB,qBAAKE,MAAL,CAAY,UAAZ,EAAwB,EAACC,IAAIN,SAASM,EAAd,EAAkBC,MAAMP,SAASO,IAAjC,EAAuCC,MAAMR,SAASQ,IAAtD,EAAxB;AACD;;;;;;;;;;;;;;;;AAEH;;;;;;mBAIMC,M;;;;;;;mBACD,KAAKN,MAAL,E;;;;;gDACM,KAAKC,IAAL,CAAU,kBAAV,C;;;AAELM,mB,GAAQ,KAAKA,KAAL,CAAW,SAAX,C;;qBACQA,MAAMC,UAAN,E;;;AAAhBC,qB;;AACJ;AACAA,sBAAQC,eAAR,GAA0B,CAAC,CAACD,QAAQC,eAApC;AACAD,sBAAQE,YAAR,GAAuBC,OAAOH,QAAQE,YAAf,CAAvB;AACAF,sBAAQI,OAAR,CAAgBT,IAAhB,GAAuBQ,OAAOH,QAAQI,OAAR,CAAgBT,IAAvB,CAAvB;AACA,kBAAI;AACFK,wBAAQK,UAAR,GAAqBC,KAAKC,KAAL,CAAWP,QAAQK,UAAnB,CAArB;AACD,eAFD,CAEE,OAAMG,CAAN,EAAS;AAAER,wBAAQK,UAAR,GAAqB,EAArB;AAA0B;AACvC,qBAAOL,QAAQS,UAAf,C,CAA2B;AAC3B,mBAAKhB,MAAL,CAAY,SAAZ,EAAuBO,OAAvB;gDACO,KAAKU,OAAL,CAAa,aAAb,C;;;;;;;;;;;;;;;;;;EAxCkBrB,MAAMJ,UAAN,CAAiB0B,I",
+    "file": "../../../src/admin/controller/base.js",
+    "sourcesContent": [
+        "'use strict';\n\nexport default class extends think.controller.base {\n  /**\n   * before\n   */\n  async __before() {\n\n    let http = this.http;\n    if(http.controller === 'user' && http.action === 'login') {\n      return;\n    }\n    let userInfo = await this.session('userInfo') || {};\n    if(think.isEmpty(userInfo)) {\n      if(this.isAjax()) {\n        return this.fail('NOT_LOGIN');\n      }\n    }\n    this.userInfo = userInfo;\n    if(!this.isAjax()) {\n      this.assign('userInfo', {id: userInfo.id, name: userInfo.name, type: userInfo.type});\n    }\n  }\n  /**\n   * call magic method\n   * @return {} []\n   */\n  async __call() {\n    if(this.isAjax()) {\n      return this.fail('ACTION_NOT_FOUND');\n    }\n    let model = this.model('options');\n    let options = await model.getOptions();\n    //不显示具体的密钥\n    options.two_factor_auth = !!options.two_factor_auth;\n    options.analyze_code = escape(options.analyze_code);\n    options.comment.name = escape(options.comment.name);\n    try {\n      options.navigation = JSON.parse(options.navigation);\n    } catch(e) { options.navigation = []; }\n    delete options.push_sites; //不显示推送的配置，会有安全问题\n    this.assign('options', options);\n    return this.display('index/index');\n  }\n}\n"
+    ]
+}

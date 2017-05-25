@@ -1,0 +1,25 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/common/config/session.js"
+    ],
+    "names": [
+        "name",
+        "type",
+        "secret",
+        "timeout",
+        "cookie",
+        "length",
+        "httponly",
+        "adapter",
+        "file",
+        "path",
+        "think",
+        "getPath"
+    ],
+    "mappings": "AAAA;;AAEA;;;;;kBAGe;AACbA,QAAM,SADO;AAEbC,QAAM,MAFO;AAGbC,UAAQ,UAHK;AAIbC,WAAS,KAAK,IAJD;AAKbC,UAAQ,EAAE;AACRC,YAAQ,EADF;AAENC,cAAU;AAFJ,GALK;AASbC,WAAS;AACPC,UAAM;AACJC,YAAMC,MAAMC,OAAN,CAAc,QAAd,EAAwB,SAAxB,IAAqC;AADvC;AADC;AATI,C",
+    "file": "../../../src/common/config/session.js",
+    "sourcesContent": [
+        "'use strict';\n\n/**\n * session configs\n */\nexport default {\n  name: 'thinkjs',\n  type: 'file',\n  secret: '!N71PV5J',\n  timeout: 24 * 3600,\n  cookie: { // cookie options\n    length: 32,\n    httponly: true\n  },\n  adapter: {\n    file: {\n      path: think.getPath('common', 'runtime') + '/session',\n    }\n  }\n};\n"
+    ]
+}

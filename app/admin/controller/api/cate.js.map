@@ -1,0 +1,40 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../../src/admin/controller/api/cate.js"
+    ],
+    "names": [
+        "getAction",
+        "result",
+        "get",
+        "modelInstance",
+        "where",
+        "pid",
+        "id",
+        "find",
+        "post_cate",
+        "length",
+        "select",
+        "map",
+        "item",
+        "success",
+        "postAction",
+        "data",
+        "post",
+        "addCate",
+        "ret",
+        "type",
+        "fail",
+        "putAction",
+        "saveCate",
+        "rows",
+        "affectedRows",
+        "deleteAction",
+        "deleteCate"
+    ],
+    "mappings": "AAAA;;;;;;;;;;;;;;;;;;;;;;;;AAEA;;;;;;;;;;;;;;AAGE;;;;mBAIMA,S;;;;;;;AACAC,oB;;AACJ,kBAAG,KAAKC,GAAL,CAAS,KAAT,CAAH,EAAoB;AAClB,qBAAKC,aAAL,CAAmBC,KAAnB,CAAyB,EAACC,KAAK,KAAKH,GAAL,CAAS,KAAT,CAAN,EAAzB;AACD;;mBACE,KAAKI,E;;;;;;qBACS,KAAKH,aAAL,CAAmBC,KAAnB,CAAyB,EAACE,IAAI,KAAKA,EAAV,EAAzB,EAAwCC,IAAxC,E;;;AAAfN,oB;;AACAA,qBAAOO,SAAP,GAAmBP,OAAOO,SAAP,CAAiBC,MAApC;;;;;;qBAEe,KAAKN,aAAL,CAAmBO,MAAnB,E;;;AAAfT,oB;;AACAA,uBAASA,OAAOU,GAAP,CAAW,gBAAQ;AAC1BC,qBAAKJ,SAAL,GAAiBI,KAAKJ,SAAL,CAAeC,MAAhC;AACA,uBAAOG,IAAP;AACD,eAHQ,CAAT;;;+CAKK,KAAKC,OAAL,CAAaZ,MAAb,C;;;;;;;;;;;;;;;;;AAGT;;;;;;mBAIMa,U;;;;;;;AACAC,kB,GAAO,KAAKC,IAAL,E;;qBAEK,KAAKb,aAAL,CAAmBc,OAAnB,CAA2BF,IAA3B,C;;;AAAZG,iB;;oBACDA,IAAIC,IAAJ,KAAa,O;;;;;gDACP,KAAKC,IAAL,CAAU,YAAV,C;;;gDAEF,KAAKP,OAAL,CAAa,EAACP,IAAIY,IAAIZ,EAAT,EAAb,C;;;;;;;;;;;;;;;;AAET;;;;;;mBAIMe,S;;;;;;;kBACC,KAAKf,E;;;;;gDACD,KAAKc,IAAL,CAAU,cAAV,C;;;AAELL,kB,GAAO,KAAKC,IAAL,E;;AACXD,mBAAKT,EAAL,GAAU,KAAKA,EAAf;;qBACiB,KAAKH,aAAL,CAAmBmB,QAAnB,CAA4BP,IAA5B,C;;;AAAbQ,kB;gDACG,KAAKV,OAAL,CAAa,EAACW,cAAcD,IAAf,EAAb,C;;;;;;;;;;;;;;;;;mBAGHE,Y;;;;;;kBACA,KAAKnB,E;;;;;gDACA,KAAKc,IAAL,CAAU,cAAV,C;;;;qBAEH,KAAKjB,aAAL,CAAmBuB,UAAnB,CAA8B,KAAKpB,EAAnC,C;;;gDACC,KAAKO,OAAL,E",
+    "file": "../../../../src/admin/controller/api/cate.js",
+    "sourcesContent": [
+        "'use strict';\n\nimport Base from './base';\n\nexport default class extends Base {\n  /**\n   * get\n   * @return {[type]} [description]\n   */\n  async getAction() {\n    let result;\n    if(this.get('pid')) {\n      this.modelInstance.where({pid: this.get('pid')});\n    }\n    if(this.id) {\n      result = await this.modelInstance.where({id: this.id}).find();\n      result.post_cate = result.post_cate.length;\n    } else {\n      result = await this.modelInstance.select();\n      result = result.map(item => {\n        item.post_cate = item.post_cate.length;\n        return item;\n      });\n    }\n    return this.success(result);\n  }\n\n  /**\n   * add user\n   * @return {[type]} [description]\n   */\n  async postAction() {\n    let data = this.post();\n\n    let ret = await this.modelInstance.addCate(data);\n    if(ret.type === 'exist') {\n      return this.fail('CATE_EXIST');\n    }\n    return this.success({id: ret.id});\n  }\n  /**\n   * update user info\n   * @return {[type]} [description]\n   */\n  async putAction() {\n    if (!this.id) {\n      return this.fail('PARAMS_ERROR');\n    }\n    let data = this.post();\n    data.id = this.id;\n    let rows = await this.modelInstance.saveCate(data);\n    return this.success({affectedRows: rows});\n  }\n\n  async deleteAction() {\n    if(!this.id) {\n      return this.fail('PARAMS_ERROR');\n    }\n    await this.modelInstance.deleteCate(this.id);\n    return this.success();\n  }\n}\n"
+    ]
+}

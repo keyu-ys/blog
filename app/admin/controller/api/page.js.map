@@ -1,0 +1,50 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../../src/admin/controller/api/page.js"
+    ],
+    "names": [
+        "http",
+        "postModel",
+        "model",
+        "_modelInstance",
+        "modelInstance",
+        "Object",
+        "defineProperty",
+        "get",
+        "setRelation",
+        "where",
+        "type",
+        "getAction",
+        "self",
+        "id",
+        "field",
+        "order",
+        "page",
+        "getBaseAction",
+        "postAction",
+        "data",
+        "post",
+        "pathname",
+        "find",
+        "think",
+        "isEmpty",
+        "fail",
+        "user_id",
+        "userInfo",
+        "getContentAndSummary",
+        "getPostTime",
+        "addPost",
+        "insert",
+        "success",
+        "putAction",
+        "savePost",
+        "rows",
+        "affectedRows"
+    ],
+    "mappings": "AAAA;;;;;;;;;;;;;;;;;;;;;;;;AAEA;;;;;;;;;AAME,kBAAYA,IAAZ,EAAkB;AAAA;;AAAA,+DAChB,iBAAMA,IAAN,CADgB;;AAAA,UAFlBC,SAEkB,GAFN,MAAKC,KAAL,CAAW,MAAX,CAEM;;AAEhB,UAAKC,cAAL,GAAsB,MAAKC,aAA3B;AACAC,WAAOC,cAAP,QAA4B,eAA5B,EAA6C;AAC3CC,SAD2C,iBACrC;AACJ,eAAO,KAAKJ,cAAL,CAAoBK,WAApB,CAAgC,MAAhC,EAAwCC,KAAxC,CAA8C,EAACC,MAAM,CAAP,EAA9C,CAAP;AACD;AAH0C,KAA7C;AAHgB;AAQjB;;mBAEDC,S,sBAAUC,I,EAAM;AACd,QAAG,CAAC,KAAKC,EAAT,EAAa;AACX,UAAIC,QAAQ,CACV,IADU,EAEV,OAFU,EAGV,SAHU,EAIV,aAJU,EAKV,aALU,EAMV,QANU,EAOV,UAPU,EAQV,WARU,CAAZ;AAUA,WAAKV,aAAL,CAAmBW,KAAnB,CAAyB,kBAAzB,EAA6CD,KAA7C,CAAmDA,KAAnD;AACD;;AAED,QAAG,KAAKP,GAAL,CAAS,MAAT,MAAqB,IAAxB,EAA8B;AAC5B,WAAKH,aAAL,CAAmBY,IAAnB,CAAwB,KAAKT,GAAL,CAAS,MAAT,CAAxB,EAA0C,EAA1C;AACD;AACD,WAAO,gBAAMU,aAAN,YAAoBL,IAApB,CAAP;AACD,G;;mBAEKM,U;;;;;;;AACAC,kB,GAAO,KAAKC,IAAL,E;;AAEX;;;qBACiB,KAAKhB,aAAL,CAAmBK,KAAnB,CAAyB,EAACY,UAAUF,KAAKE,QAAhB,EAAzB,EAAoDC,IAApD,E;;;AAAbF,kB;;kBAEAG,MAAMC,OAAN,CAAcJ,IAAd,C;;;;;+CACK,KAAKK,IAAL,CAAU,gBAAV,C;;;;AAGTN,mBAAKT,IAAL,GAAY,CAAZ;AACAS,mBAAKO,OAAL,GAAe,KAAKC,QAAL,CAAcd,EAA7B;;qBACa,KAAKZ,SAAL,CAAe2B,oBAAf,CAAoCT,IAApC,C;;;AAAbA,kB;;AACAA,qBAAO,KAAKlB,SAAL,CAAe4B,WAAf,CAA2BV,IAA3B,CAAP;;;qBAEmB,KAAKf,aAAL,CAAmB0B,OAAnB,CAA2BX,IAA3B,C;;;AAAfY,oB;+CACG,KAAKC,OAAL,CAAaD,MAAb,C;;;;;;;;;;;;;;;;;mBAGHE,S;;;;;;;kBACC,KAAKpB,E;;;;;gDACD,KAAKY,IAAL,CAAU,cAAV,C;;;AAELN,kB,GAAO,KAAKC,IAAL,E;;AACXD,mBAAKN,EAAL,GAAU,KAAKA,EAAf;AACAM,mBAAKT,IAAL,GAAY,CAAZ;;qBACa,KAAKT,SAAL,CAAe2B,oBAAf,CAAoCT,IAApC,C;;;AAAbA,kB;;AACAA,qBAAO,KAAKlB,SAAL,CAAe4B,WAAf,CAA2BV,IAA3B,CAAP;;;qBAEiB,KAAKf,aAAL,CAAmB8B,QAAnB,CAA4Bf,IAA5B,C;;;AAAbgB,kB;gDACG,KAAKH,OAAL,CAAa,EAACI,cAAcD,IAAf,EAAb,C",
+    "file": "../../../../src/admin/controller/api/page.js",
+    "sourcesContent": [
+        "'use strict';\n\nimport Post from './post';\n\nexport default class extends Post {\n\n  postModel = this.model('post');\n\n  constructor(http) {\n    super(http);\n    this._modelInstance = this.modelInstance;\n    Object.defineProperty(this, 'modelInstance', {\n      get() {\n        return this._modelInstance.setRelation('user').where({type: 1});\n      }\n    });\n  }\n\n  getAction(self) {\n    if(!this.id) {\n      let field = [\n        'id',\n        'title',\n        'user_id',\n        'create_time',\n        'update_time',\n        'status',\n        'pathname',\n        'is_public'\n      ];\n      this.modelInstance.order('create_time DESC').field(field);\n    }\n\n    if(this.get('page') !== '-1') {\n      this.modelInstance.page(this.get('page'), 20);\n    }\n    return super.getBaseAction(self);\n  }\n\n  async postAction() {\n    let data = this.post();\n\n    //check pathname\n    let post = await this.modelInstance.where({pathname: data.pathname}).find();\n\n    if(!think.isEmpty(post)) {\n      return this.fail('PATHNAME_EXIST');\n    }\n\n    data.type = 1;\n    data.user_id = this.userInfo.id;\n    data = await this.postModel.getContentAndSummary(data);\n    data = this.postModel.getPostTime(data);\n\n    let insert = await this.modelInstance.addPost(data);\n    return this.success(insert);\n  }\n\n  async putAction() {\n    if (!this.id) {\n      return this.fail('PARAMS_ERROR');\n    }\n    let data = this.post();\n    data.id = this.id;\n    data.type = 1;\n    data = await this.postModel.getContentAndSummary(data);\n    data = this.postModel.getPostTime(data);\n\n    let rows = await this.modelInstance.savePost(data);\n    return this.success({affectedRows: rows});\n  }\n\n}\n"
+    ]
+}
