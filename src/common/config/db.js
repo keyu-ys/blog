@@ -1,7 +1,7 @@
+"use strict";
 
-      "use strict";
-      exports.__esModule = true;
-      exports.default = {
+exports.__esModule = true;
+exports.default = {
     "type": "mysql",
     "adapter": {
         "mysql": {
