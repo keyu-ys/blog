@@ -4,11 +4,12 @@
         "../../../../src/common/config/env/production.js"
     ],
     "names": [
-        "cluster_on"
+        "cluster_on",
+        "mysql"
     ],
-    "mappings": "AAAA;;;kBAEe;AACbA,cAAY;AADC,C",
+    "mappings": "AAAA;;;kBAEe;AACXA,gBAAY,CADD;AAEXC,WAAO;AACH,gBAAQ,eADL;AAEH,gBAAQ,MAFL;AAGH,oBAAY,MAHT;AAIH,gBAAQ,MAJL;AAKH,oBAAY,cALT;AAMH,kBAAU,KANP;AAOH,gBAAQ;AAPL;AAFI,C",
     "file": "../../../../src/common/config/env/production.js",
     "sourcesContent": [
-        "'use strict';\n\nexport default {\n  cluster_on: 1\n};\n"
+        "'use strict';\n\nexport default {\n    cluster_on: 1,\n    mysql: {\n        \"host\": \"39.108.68.144\",\n        \"port\": \"3306\",\n        \"database\": \"blog\",\n        \"user\": \"root\",\n        \"password\": \"a13660858829\",\n        \"prefix\": \"fk_\",\n        \"type\": \"mysql\"\n    }\n};\n"
     ]
 }

@@ -8,9 +8,9 @@
         "__esModule",
         "default"
     ],
-    "mappings": ";AACM;;AACAA,QAAQC,UAAR,GAAqB,IAArB;AACAD,QAAQE,OAAR,GAAkB;AACpB,YAAQ,OADY;AAEpB,eAAW;AACP,iBAAS;AACL,oBAAQ,WADH;AAEL,oBAAQ,MAFH;AAGL,wBAAY,MAHP;AAIL,oBAAQ,MAJH;AAKL,wBAAY,cALP;AAML,sBAAU,KANL;AAOL,oBAAQ;AAPH;AADF;AAFS,CAAlB",
+    "mappings": "AAAA;;AAEAA,QAAQC,UAAR,GAAqB,IAArB;AACAD,QAAQE,OAAR,GAAkB;AACd,YAAQ,OADM;AAEd,eAAW;AACP,iBAAS;AACL,oBAAQ,WADH;AAEL,oBAAQ,MAFH;AAGL,wBAAY,MAHP;AAIL,oBAAQ,MAJH;AAKL,wBAAY,cALP;AAML,sBAAU,KANL;AAOL,oBAAQ;AAPH;AADF;AAFG,CAAlB",
     "file": "../../../src/common/config/db.js",
     "sourcesContent": [
-        "\n      \"use strict\";\n      exports.__esModule = true;\n      exports.default = {\n    \"type\": \"mysql\",\n    \"adapter\": {\n        \"mysql\": {\n            \"host\": \"127.0.0.1\",\n            \"port\": \"3306\",\n            \"database\": \"blog\",\n            \"user\": \"root\",\n            \"password\": \"a13660858829\",\n            \"prefix\": \"fk_\",\n            \"type\": \"mysql\"\n        }\n    }\n}\n    "
+        "\"use strict\";\n\nexports.__esModule = true;\nexports.default = {\n    \"type\": \"mysql\",\n    \"adapter\": {\n        \"mysql\": {\n            \"host\": \"127.0.0.1\",\n            \"port\": \"3306\",\n            \"database\": \"blog\",\n            \"user\": \"root\",\n            \"password\": \"a13660858829\",\n            \"prefix\": \"fk_\",\n            \"type\": \"mysql\"\n        }\n    }\n}\n    "
     ]
 }
