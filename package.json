@@ -1,9 +1,9 @@
 {
-    "name": "Firekylin",
-    "description": "A Simple & Fast Node Bloging Platform Base On ThinkJS 2.0 & ReactJS & ES2015+",
+    "name": "blog",
+    "description": "blog by keyu",
     "version": "0.15.8",
     "scripts": {
-        "start": "npm install&node www/production.js",
+        "start": "npm install&npm compile&node www/production.js",
         "compile": "babel --presets es2015,stage-1 --plugins transform-runtime src/ --out-dir app/",
         "watch-compile": "node -e \"console.log('<npm run watch-compile> no longer need, use <npm start> command directly.');console.log();\"",
         "watch": "npm run watch-compile",

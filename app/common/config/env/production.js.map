@@ -5,11 +5,14 @@
     ],
     "names": [
         "cluster_on",
+        "db",
+        "type",
+        "adapter",
         "mysql"
     ],
-    "mappings": "AAAA;;;kBAEe;AACXA,gBAAY,CADD;AAEXC,WAAO;AACH,gBAAQ,eADL;AAEH,gBAAQ,MAFL;AAGH,oBAAY,MAHT;AAIH,gBAAQ,MAJL;AAKH,oBAAY,cALT;AAMH,kBAAU,KANP;AAOH,gBAAQ;AAPL;AAFI,C",
+    "mappings": "AAAA;;;kBAEe;AACXA,gBAAY,CADD;AAEXC,QAAI,EAAE;AACFC,cAAM,OADN;AAEAC,iBAAS;AACLC,mBAAO;AACH,wBAAQ,gBADL;AAEH,wBAAQ,MAFL;AAGH,4BAAY,MAHT;AAIH,wBAAQ,MAJL;AAKH,4BAAY,cALT;AAMH,0BAAU,KANP;AAOH,wBAAQ;AAPL;AADF;AAFT;AAFO,C",
     "file": "../../../../src/common/config/env/production.js",
     "sourcesContent": [
-        "'use strict';\n\nexport default {\n    cluster_on: 1,\n    mysql: {\n        \"host\": \"39.108.68.144\",\n        \"port\": \"3306\",\n        \"database\": \"blog\",\n        \"user\": \"root\",\n        \"password\": \"a13660858829\",\n        \"prefix\": \"fk_\",\n        \"type\": \"mysql\"\n    }\n};\n"
+        "'use strict';\n\nexport default {\n    cluster_on: 2,\n    db: { //开发模式下数据库配置\n        type: \"mysql\",\n        adapter: {\n            mysql: {\n                \"host\": \"172.18.233.255\",\n                \"port\": \"3306\",\n                \"database\": \"blog\",\n                \"user\": \"root\",\n                \"password\": \"a13660858829\",\n                \"prefix\": \"fk_\",\n                \"type\": \"mysql\"\n            }\n        }\n    },\n};\n"
     ]
 }
